@@ -3,10 +3,12 @@ package csubbcluj.lisamunteanu.orderservice.controller;
 import csubbcluj.lisamunteanu.orderservice.model.Order;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class OrderController {
@@ -17,10 +19,6 @@ public class OrderController {
             new Order(4, 1, "Product D"),
             new Order(5, 2, "Product E"));
 
-    @GetMapping
-    public List<Order> getAllOrders() {
-        return orders;
-    }
 
     @GetMapping("/{id}")
     public Order getOrderById(@PathVariable int id) {
@@ -28,5 +26,16 @@ public class OrderController {
                 .filter(order -> order.getId() == id)
                 .findFirst()
                 .orElseThrow(IllegalArgumentException::new);
+    }
+
+    @GetMapping
+    public List<Order> getAllOrders(@RequestParam(required = false) Integer customerId) {
+        if (customerId != null) {
+            return orders.stream()
+                    .filter(order -> customerId.equals(order.getCustomerId()))
+                    .collect(Collectors.toList());
+        }
+
+        return orders;
     }
 }

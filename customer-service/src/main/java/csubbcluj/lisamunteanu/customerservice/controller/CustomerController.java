@@ -1,5 +1,6 @@
 package csubbcluj.lisamunteanu.customerservice.controller;
 
+import csubbcluj.lisamunteanu.customerservice.clients.OrderClient;
 import csubbcluj.lisamunteanu.customerservice.model.Customer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,12 @@ public class CustomerController {
             new Customer(1, "Joe Bloggs"),
             new Customer(2, "Jane Doe"));
 
+    private OrderClient orderClient;
+
+    public CustomerController(OrderClient orderClient) {
+        this.orderClient = orderClient;
+    }
+
     @GetMapping
     public List<Customer> getAllCustomers() {
         return customers;
@@ -25,5 +32,10 @@ public class CustomerController {
                 .filter(customer -> customer.getId() == id)
                 .findFirst()
                 .orElseThrow(IllegalArgumentException::new);
+    }
+
+    @GetMapping("/{id}/orders")
+    public Object getOrdersForCustomer(@PathVariable int id) {
+        return orderClient.getOrdersForCustomer(id);
     }
 }
