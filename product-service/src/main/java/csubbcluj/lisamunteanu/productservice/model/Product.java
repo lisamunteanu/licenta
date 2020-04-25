@@ -1,5 +1,9 @@
 package csubbcluj.lisamunteanu.productservice.model;
 
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -7,8 +11,16 @@ import java.io.Serializable;
 @Table(name = "products")
 public class Product implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence-generator")
+    @GenericGenerator(
+            name = "sequence-generator",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @Parameter(name = "sequence_name", value = "product_sequence"),
+                    @Parameter(name = "initial_value", value = "100000"),
+                    @Parameter(name = "increment_size", value = "1")
+            }
+    )
     private Integer id;
 
     @Column(name = "name")

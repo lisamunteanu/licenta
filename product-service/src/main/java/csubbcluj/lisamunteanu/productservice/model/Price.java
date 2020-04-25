@@ -18,8 +18,8 @@ public class Price implements Serializable {
     @Column(name = "priceWithoutVAT")
     private Double priceWithoutVAT;
 
-    @Column(name = "VAT")
-    private Double VAT;
+    @Column(name = "vat")
+    private Double vat;
 
     @Column(name = "discount")
     private Double discount;
@@ -30,10 +30,10 @@ public class Price implements Serializable {
     public Price() {
     }
 
-    public Price(Double priceWithVAT, Double priceWithoutVAT, Double VAT, Double discount, Product product) {
+    public Price(Double priceWithVAT, Double priceWithoutVAT, Double vat, Double discount, Product product) {
         this.priceWithVAT = priceWithVAT;
         this.priceWithoutVAT = priceWithoutVAT;
-        this.VAT = VAT;
+        this.vat = vat;
         this.discount = discount;
         this.product = product;
     }
@@ -54,12 +54,12 @@ public class Price implements Serializable {
         this.priceWithoutVAT = priceWithoutVAT;
     }
 
-    public Double getVAT() {
-        return VAT;
+    public Double getVat() {
+        return vat;
     }
 
-    public void setVAT(Double VAT) {
-        this.VAT = VAT;
+    public void setVat(Double vat) {
+        this.vat = vat;
     }
 
     public Double getDiscount() {

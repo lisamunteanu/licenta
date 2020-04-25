@@ -3,20 +3,50 @@ package csubbcluj.lisamunteanu.productservice.controller;
 import csubbcluj.lisamunteanu.productservice.model.Product;
 import csubbcluj.lisamunteanu.productservice.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
+@CrossOrigin(
+        origins = {"*"}
+)
 public class ProductController {
 
     @Autowired
     ProductService productService;
 
     @GetMapping
-    public List<Product> getAllProducts()
-    {
-        return productService.findAll();
+    public ResponseEntity<List<Product>> getAllProducts() {
+        List<Product> allProducts = productService.findAll();
+        return new ResponseEntity<>(allProducts, HttpStatus.OK);
+    }
+
+    @GetMapping("/{productId}")
+    public ResponseEntity<Map<String, Product>> findProductById(@PathVariable String productId) {
+        Optional<Product> optionalProduct = productService.findById(Integer.parseInt(productId));
+        Map<String, Product> response = new HashMap<>();
+        if (optionalProduct.isPresent()) {
+            response.put("Product found", optionalProduct.get());
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else {
+            response.put("Product not found", null);
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<Map<String, Product>> saveProduct(@RequestBody Product product) {
+        Product savedProduct = productService.save(product);
+        Map<String, Product> response = new HashMap<>();
+        if (Objects.isNull(savedProduct.getId())) {
+            response.put("Error while saving the product", null);
+            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+        } else {
+            response.put("Product saved", savedProduct);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
     }
 }
