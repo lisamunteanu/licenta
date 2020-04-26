@@ -24,7 +24,7 @@ public class ProductController {
         return new ResponseEntity<>(allProducts, HttpStatus.OK);
     }
 
-    @GetMapping("/{productId}")
+    @GetMapping("{productId}")
     public ResponseEntity<Map<String, Product>> findProductById(@PathVariable String productId) {
         Optional<Product> optionalProduct = productService.findById(Integer.parseInt(productId));
         Map<String, Product> response = new HashMap<>();
@@ -34,6 +34,16 @@ public class ProductController {
         } else {
             response.put("Product not found", null);
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/category")
+    public ResponseEntity<List<Product>> findAllProductsByCategory(@RequestParam(name="id") String categoryId) {
+        List<Product> productsFromCategory = productService.findAllProductsFromCategory(Integer.parseInt(categoryId));
+        if (productsFromCategory.isEmpty()) {
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(productsFromCategory, HttpStatus.OK);
         }
     }
 

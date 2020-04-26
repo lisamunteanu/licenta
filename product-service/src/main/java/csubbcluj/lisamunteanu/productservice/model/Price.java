@@ -1,5 +1,7 @@
 package csubbcluj.lisamunteanu.productservice.model;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -12,7 +14,7 @@ public class Price implements Serializable {
     @Column(name = "id", nullable = false, updatable = false)
     private Integer id;
 
-    @Column(name = "priceWithVAT")
+    @Column(name = "finalPrice")
     private Double priceWithVAT;
 
     @Column(name = "priceWithoutVAT")
@@ -21,21 +23,25 @@ public class Price implements Serializable {
     @Column(name = "vat")
     private Double vat;
 
+    @Column(name = "fullPrice")
+    private Double fullPrice;
+
     @Column(name = "discount")
     private Double discount;
 
-    @OneToOne(mappedBy = "price")
-    private Product product;
+    @Column(name = "currency")
+    private String currency;
 
     public Price() {
     }
 
-    public Price(Double priceWithVAT, Double priceWithoutVAT, Double vat, Double discount, Product product) {
+    public Price(Double priceWithVAT, Double priceWithoutVAT, Double vat, Double fullPrice, Double discount, String currency) {
         this.priceWithVAT = priceWithVAT;
         this.priceWithoutVAT = priceWithoutVAT;
         this.vat = vat;
+        this.fullPrice = fullPrice;
         this.discount = discount;
-        this.product = product;
+        this.currency = currency;
     }
 
     public Double getPriceWithVAT() {
@@ -78,11 +84,19 @@ public class Price implements Serializable {
         this.id = id;
     }
 
-    public Product getProduct() {
-        return product;
+    public Double getFullPrice() {
+        return fullPrice;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setFullPrice(Double fullPrice) {
+        this.fullPrice = fullPrice;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }

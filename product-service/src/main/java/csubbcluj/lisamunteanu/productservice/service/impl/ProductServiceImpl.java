@@ -29,4 +29,9 @@ public class ProductServiceImpl implements ProductService {
     public Optional<Product> findById(Integer id) {
         return productDao.findById(id);
     }
+
+    @Override
+    public List<Product> findAllProductsFromCategory(Integer categoryId) {
+        return productDao.findAllProductsFromCategory(categoryId);
+    }
 }

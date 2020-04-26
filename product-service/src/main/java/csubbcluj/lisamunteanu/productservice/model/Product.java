@@ -41,8 +41,8 @@ public class Product implements Serializable {
     @Column(name = "stock")
     private Integer stock;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "price_id", referencedColumnName = "id")
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "price_id")
     private Price price;
 
     public Product() {

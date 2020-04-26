@@ -20,13 +20,17 @@ public class Category implements Serializable {
     @Column(name = "visible")
     private Boolean visible;
 
+    @Column(name="clickable")
+    private Boolean clickable;
+
     public Category() {
     }
 
-    public Category(String name, String supercategory, Boolean visible) {
+    public Category(String name, String supercategory, Boolean visible,Boolean clickable) {
         this.name = name;
         this.supercategory = supercategory;
         this.visible = visible;
+        this.clickable = clickable;
     }
 
     public Integer getId() {
@@ -53,11 +57,19 @@ public class Category implements Serializable {
         this.supercategory = supercategory;
     }
 
-    public Boolean getVisible() {
+    public Boolean isVisible() {
         return visible;
     }
 
     public void setVisible(Boolean visible) {
         this.visible = visible;
+    }
+
+    public Boolean isClickable() {
+        return clickable;
+    }
+
+    public void setClickable(Boolean clickable) {
+        this.clickable = clickable;
     }
 }
