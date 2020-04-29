@@ -1,0 +1,20 @@
+.website {
+  min-height: 100vh;
+  font-family: Bahnschrift;
+}
+
+.footer {
+  margin-bottom: 0 !important;
+}
+
+.header{
+  position: fixed;
+  top:0;
+  width: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.body{
+  margin-top: 80px;
+}

@@ -5,22 +5,36 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ProductsListingComponent } from './products-listing/products-listing.component';
-import {HttpClientModule} from "@angular/common/http";
-import { ProductCardComponent } from './components/product-card/product-card.component';
+import { HttpClientModule } from '@angular/common/http';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { FooterComponent } from './components/footer/footer.component';
+import {ProductsListingModule} from './pages/products-listing/products-listing.module';
+import {HomepageModule} from './pages/homepage/homepage.module';
+import {ProductDetailsModule} from './pages/product-details/product-details.module';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatButtonModule} from '@angular/material/button';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductsListingComponent,
-    ProductCardComponent
+    NavbarComponent,
+    FooterComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    ProductsListingModule,
+    HomepageModule,
+    ProductDetailsModule,
+    MatTooltipModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

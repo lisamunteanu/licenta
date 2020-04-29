@@ -25,15 +25,12 @@ public class ProductController {
     }
 
     @GetMapping("{productId}")
-    public ResponseEntity<Map<String, Product>> findProductById(@PathVariable String productId) {
+    public ResponseEntity<Product> findProductById(@PathVariable String productId) {
         Optional<Product> optionalProduct = productService.findById(Integer.parseInt(productId));
-        Map<String, Product> response = new HashMap<>();
         if (optionalProduct.isPresent()) {
-            response.put("Product found", optionalProduct.get());
-            return new ResponseEntity<>(response, HttpStatus.OK);
+            return new ResponseEntity<>(optionalProduct.get(), HttpStatus.OK);
         } else {
-            response.put("Product not found", null);
-            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>((Product) null, HttpStatus.NOT_FOUND);
         }
     }
 

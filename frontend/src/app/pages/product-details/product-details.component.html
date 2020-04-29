@@ -1,0 +1,45 @@
+<div class="product-details-page" *ngIf="product">
+  <div class="row first-row">
+    <!--white space-->
+    <div class="col-md-2"></div>
+
+    <div class="col-md-4 image-container">
+      <img src="/assets/images/{{product.image}}"/>
+    </div>
+    <div class="col-md-4 product-info-conainer">
+      <div class="row product-name">
+        {{product.name}}
+      </div>
+      <div class="price product-full-price" *ngIf="product.price.discount > 0">
+        Full price: {{product.price.fullPrice}}
+      </div>
+      <div class="price product-final-price">
+        Price: {{product.price.finalPrice}}
+      </div>
+      <div class="price product-discount-price" *ngIf="product.price.discount > 0">
+        Discount: {{product.price.discount}}
+      </div>
+      <div class="product-brand">
+        Marca: {{product.brand}}
+      </div>
+      <div>
+        <form class="add-to-cart">
+          <button mat-flat-button class="add-to-cart-button" type="submit">
+            <img src="assets/images/addTocartIcon.png"/>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!--white space-->
+    <div class="col-md-2"></div>
+  </div>
+
+  <div class="row second-row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      Product description+informations
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>

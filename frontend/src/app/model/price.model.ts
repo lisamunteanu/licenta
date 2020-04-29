@@ -1,12 +1,13 @@
 export class Price {
   id?: number;
-  priceWithVAT?: number;
+  finalPrice?: number;
   priceWithoutVAT?: number;
   vat?: number;
   discount?: number;
+  fullPrice?: number;
+  currency?: string;
 
-  constructor(
-  ) {
+  constructor() {
   }
 
 }

@@ -1,19 +1,24 @@
 package csubbcluj.lisamunteanu.customerservice.controller;
 
+import com.netflix.client.http.HttpResponse;
 import csubbcluj.lisamunteanu.customerservice.clients.OrderClient;
 import csubbcluj.lisamunteanu.customerservice.model.Customer;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import csubbcluj.lisamunteanu.customerservice.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class CustomerController {
-    private List<Customer> customers = Arrays.asList(
-            new Customer(1, "Joe Bloggs"),
-            new Customer(2, "Jane Doe"));
+
+    @Autowired
+    private CustomerService customerService;
 
     private OrderClient orderClient;
 
@@ -23,19 +28,42 @@ public class CustomerController {
 
     @GetMapping
     public List<Customer> getAllCustomers() {
-        return customers;
+        return customerService.findAllCustomers();
     }
 
-    @GetMapping("/{id}")
-    public Customer getCustomerById(@PathVariable int id) {
-        return customers.stream()
-                .filter(customer -> customer.getId() == id)
-                .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
-    }
+//    @GetMapping("/{id}")
+//    public Customer getCustomerById(@PathVariable int id) {
+//        return customers.stream()
+//                .filter(customer -> customer.getId() == id)
+//                .findFirst()
+//                .orElseThrow(IllegalArgumentException::new);
+//    }
 
     @GetMapping("/{id}/orders")
     public Object getOrdersForCustomer(@PathVariable int id) {
         return orderClient.getOrdersForCustomer(id);
     }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody Customer customer){
+        Optional<Customer> optCustomer = customerService.findByName(customer.getUsername());
+        if(optCustomer.isPresent()){
+           return new ResponseEntity<>(null, HttpStatus.IM_USED);
+        }
+        else{
+            customerService.saveCustomer(customer);
+            return new ResponseEntity<>(customer.getUsername(),HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("user")
+    public ResponseEntity<?> findAllProductsByCategory(@RequestParam(name="username") String username) {
+        Optional<Customer> optionalCustomer = customerService.findByName(username);
+        if (optionalCustomer.isPresent()) {
+            return new ResponseEntity<>(optionalCustomer.get(), HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.OK);
+        }
+    }
+
 }

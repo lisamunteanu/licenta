@@ -1,0 +1,31 @@
+.card {
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+  font-family: Bahnschrift;
+  font-size: 16px;
+}
+
+.card-header img {
+  height: 80%;
+  width: 80%;
+}
+
+.card-header {
+  background-color: white;
+  border-style: none;
+}
+
+.stock-available {
+  color: green;
+  float: right;
+  font-size: 20px;
+}
+
+.product-listing-brand, .product-listing-name {
+  text-align: center;
+}
+
+.card-footer{
+  padding: 20px 10px;
+}

@@ -1,7 +1,5 @@
 package csubbcluj.lisamunteanu.productservice.model;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -15,7 +13,7 @@ public class Price implements Serializable {
     private Integer id;
 
     @Column(name = "finalPrice")
-    private Double priceWithVAT;
+    private Double finalPrice;
 
     @Column(name = "priceWithoutVAT")
     private Double priceWithoutVAT;
@@ -35,8 +33,8 @@ public class Price implements Serializable {
     public Price() {
     }
 
-    public Price(Double priceWithVAT, Double priceWithoutVAT, Double vat, Double fullPrice, Double discount, String currency) {
-        this.priceWithVAT = priceWithVAT;
+    public Price(Double finalPrice, Double priceWithoutVAT, Double vat, Double fullPrice, Double discount, String currency) {
+        this.finalPrice = finalPrice;
         this.priceWithoutVAT = priceWithoutVAT;
         this.vat = vat;
         this.fullPrice = fullPrice;
@@ -44,12 +42,12 @@ public class Price implements Serializable {
         this.currency = currency;
     }
 
-    public Double getPriceWithVAT() {
-        return priceWithVAT;
+    public Double getFinalPrice() {
+        return finalPrice;
     }
 
-    public void setPriceWithVAT(Double priceWithVAT) {
-        this.priceWithVAT = priceWithVAT;
+    public void setFinalPrice(Double finalPrice) {
+        this.finalPrice = finalPrice;
     }
 
     public Double getPriceWithoutVAT() {
