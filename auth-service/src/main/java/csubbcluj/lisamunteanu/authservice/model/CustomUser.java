@@ -28,11 +28,15 @@ public class CustomUser implements Serializable {
     @Column(name = "role")
     private String role;
 
-    public CustomUser(Integer id, String username, String password, String role) {
+    @Column(name = "name")
+    private String name;
+
+    public CustomUser(Integer id, String username, String password, String role, String name) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.role = role;
+        this.name = name;
     }
 
     public CustomUser() {
@@ -68,5 +72,13 @@ public class CustomUser implements Serializable {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

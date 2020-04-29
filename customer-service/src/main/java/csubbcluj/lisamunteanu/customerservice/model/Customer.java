@@ -1,14 +1,12 @@
 package csubbcluj.lisamunteanu.customerservice.model;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "customers")
-public class Customer {
+public class Customer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,11 +24,15 @@ public class Customer {
     @Column(name = "role")
     private String role;
 
-    public Customer(Integer id, String username, String password, String role) {
+    @Column(name = "name")
+    private String name;
+
+    public Customer(Integer id, String username, String password, String role, String name) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.role = role;
+        this.name = name;
     }
 
     public Customer() {
@@ -68,4 +70,11 @@ public class Customer {
         this.role = role;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

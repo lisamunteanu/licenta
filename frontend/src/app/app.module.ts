@@ -13,16 +13,14 @@ import {HomepageModule} from './pages/homepage/homepage.module';
 import {ProductDetailsModule} from './pages/product-details/product-details.module';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
-import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
+import {LoginModule} from './pages/login/login.module';
+import {RegisterModule} from './pages/register/register.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    FooterComponent,
-    LoginComponent,
-    RegisterComponent
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +32,9 @@ import { RegisterComponent } from './pages/register/register.component';
     HomepageModule,
     ProductDetailsModule,
     MatTooltipModule,
-    MatButtonModule
+    MatButtonModule,
+    LoginModule,
+    RegisterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

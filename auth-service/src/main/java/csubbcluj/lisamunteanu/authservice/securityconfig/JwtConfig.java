@@ -1,8 +1,11 @@
 package csubbcluj.lisamunteanu.authservice.securityconfig;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+@CrossOrigin
 public class JwtConfig {
+
     @Value("${security.jwt.uri:/auth/**}")
     private String Uri;
 
