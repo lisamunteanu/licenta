@@ -21,6 +21,10 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterModule)
+  },
+  {
+    path: 'my-account',
+    loadChildren: () => import('./pages/my-account/my-account.module').then(m => m.MyAccountModule)
   }
 ];
 

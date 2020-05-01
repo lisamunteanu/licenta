@@ -15,6 +15,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
 import {LoginModule} from './pages/login/login.module';
 import {RegisterModule} from './pages/register/register.module';
+import {MyAccountModule} from './pages/my-account/my-account.module';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {RegisterModule} from './pages/register/register.module';
     MatTooltipModule,
     MatButtonModule,
     LoginModule,
-    RegisterModule
+    RegisterModule,
+    MyAccountModule
   ],
   providers: [],
   bootstrap: [AppComponent]

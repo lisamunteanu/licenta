@@ -1,19 +1,21 @@
 package csubbcluj.lisamunteanu.customerservice.controller;
 
-import com.netflix.client.http.HttpResponse;
 import csubbcluj.lisamunteanu.customerservice.clients.OrderClient;
 import csubbcluj.lisamunteanu.customerservice.model.Customer;
 import csubbcluj.lisamunteanu.customerservice.service.CustomerService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(
+        origins = {"*"}
+)
 @RestController
 public class CustomerController {
 
@@ -45,19 +47,19 @@ public class CustomerController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody Customer customer){
+    public HttpStatus register(@RequestBody Customer customer){
         Optional<Customer> optCustomer = customerService.findByName(customer.getUsername());
         if(optCustomer.isPresent()){
-           return new ResponseEntity<>(null, HttpStatus.IM_USED);
+           return HttpStatus.IM_USED;
         }
         else{
             customerService.saveCustomer(customer);
-            return new ResponseEntity<>(customer.getUsername(),HttpStatus.OK);
+            return HttpStatus.OK;
         }
     }
 
-    @GetMapping("user")
-    public ResponseEntity<?> findAllProductsByCategory(@RequestParam(name="username") String username) {
+    @GetMapping("/username")
+    public ResponseEntity<?> findCustomerByName(@PathVariable String username) {
         Optional<Customer> optionalCustomer = customerService.findByName(username);
         if (optionalCustomer.isPresent()) {
             return new ResponseEntity<>(optionalCustomer.get(), HttpStatus.NOT_FOUND);

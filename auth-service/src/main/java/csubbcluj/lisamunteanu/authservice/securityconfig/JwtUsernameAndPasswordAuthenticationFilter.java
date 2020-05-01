@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import csubbcluj.lisamunteanu.authservice.model.UserCredentials;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -88,6 +89,13 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
         // Add token to header
         response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, request.getHeader(HttpHeaders.ORIGIN));
+        response.addHeader("Access-Control-Expose-Headers", "Authorization");
         response.addHeader(jwtConfig.getHeader(), jwtConfig.getPrefix() + token);
+    }
+
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+        response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, request.getHeader(HttpHeaders.ORIGIN));
+        super.unsuccessfulAuthentication(request, response, failed);
     }
 }

@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationEn
 import java.io.IOException;
 
 
-@EnableWebSecurity    // Enable security config. This annotation denotes config for spring security.
+@EnableWebSecurity 	// Enable security config. This annotation denotes config for spring security.
 public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtConfig jwtConfig;
@@ -55,9 +55,9 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // allow all who are accessing "auth" service
                 .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
-                .antMatchers("/products/**", "/customers/**,/auth/**").permitAll()
+                .antMatchers("/customers/**","/auth/**").permitAll()
                 // must be an admin if trying to access admin area (authentication is also required here)
-                // .antMatchers("/products").hasRole("ADMIN")
+               // .antMatchers("/products").hasRole("ADMIN")
                 // Any other request must be authenticated
                 .anyRequest().authenticated();
     }

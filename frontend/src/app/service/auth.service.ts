@@ -14,11 +14,19 @@ export class AuthService {
   }
 
   authenticate(credentials: Credentials): Observable<any> {
-    console.log('auth');
     return this.http.post<Credentials>(this.resourceUrl, credentials, {
-      headers: new HttpHeaders()
-        .set('Content-Type', 'application/json'),
       observe: 'response'
-    });
+    }).pipe(map(res => {
+      res.headers.get('authorization');
+      localStorage.setItem('access_token', res.headers.get('authorization'));
+    }));
+  }
+
+  logout() {
+    localStorage.removeItem('access_token');
+  }
+
+  public isLoggedIn(): boolean {
+    return localStorage.getItem('access_token') !== null;
   }
 }
