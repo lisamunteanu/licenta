@@ -1,41 +1,49 @@
 package csubbcluj.lisamunteanu.orderservice.controller;
 
 import csubbcluj.lisamunteanu.orderservice.model.Order;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import csubbcluj.lisamunteanu.orderservice.service.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin(
+        origins = {"*"}
+)
 public class OrderController {
-    private final List<Order> orders = Arrays.asList(
-            new Order(1, 1, "Product A"),
-            new Order(2, 1, "Product B"),
-            new Order(3, 2, "Product C"),
-            new Order(4, 1, "Product D"),
-            new Order(5, 2, "Product E"));
-
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping("/{id}")
-    public Order getOrderById(@PathVariable int id) {
-        return orders.stream()
-                .filter(order -> order.getId() == id)
-                .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
+    public ResponseEntity<Order> getOrderById(@PathVariable String orderId) {
+        Optional<Order> optionalOrder = orderService.findById(Integer.parseInt(orderId));
+        if (optionalOrder.isPresent()) {
+            return new ResponseEntity<>(optionalOrder.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping
-    public List<Order> getAllOrders(@RequestParam(required = false) Integer customerId) {
-        if (customerId != null) {
-            return orders.stream()
-                    .filter(order -> customerId.equals(order.getCustomerId()))
-                    .collect(Collectors.toList());
-        }
-
-        return orders;
+    public ResponseEntity<List<Order>> getAllOrders(){
+        return new ResponseEntity<>(orderService.getAll(),HttpStatus.OK);
     }
+
+//    @GetMapping
+//    public List<Order> getAllOrders(@RequestParam(required = false) Integer customerId) {
+//        if (customerId != null) {
+//            return orders.stream()
+//                    .filter(order -> customerId.equals(order.getCustomerId()))
+//                    .collect(Collectors.toList());
+//        }
+//
+//        return orders;
+//    }
 }

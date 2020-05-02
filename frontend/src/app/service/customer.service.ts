@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {HttpClient, HttpResponse} from "@angular/common/http";
+import {HttpClient, HttpParams, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Customer} from '../model/customer.model';
 
@@ -20,8 +20,10 @@ export class CustomerService {
   }
 
   findByUsername(username: string): Observable<EntityResponseType> {
+    let parameters = new HttpParams();
+    parameters = parameters.append('username', username);
     return this.http
-      .get<Customer>(`${this.resourceUrl}/${username}`, {observe: 'response'});
+      .get<Customer>(`${this.resourceUrl}/by`, {params: parameters, observe: 'response'});
   }
 
   register(customer: Customer): Observable<{}> {

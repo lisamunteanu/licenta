@@ -16,12 +16,16 @@ import {MatButtonModule} from '@angular/material/button';
 import {LoginModule} from './pages/login/login.module';
 import {RegisterModule} from './pages/register/register.module';
 import {MyAccountModule} from './pages/my-account/my-account.module';
+import { MyCartComponent } from './my-cart/my-cart.component';
+import { CartEntryCardComponent } from './components/cart-entry-card/cart-entry-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    MyCartComponent,
+    CartEntryCardComponent
   ],
   imports: [
     BrowserModule,

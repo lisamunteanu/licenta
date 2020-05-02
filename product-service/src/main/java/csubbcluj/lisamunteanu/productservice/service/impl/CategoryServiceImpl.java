@@ -15,7 +15,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     CategoryDao categoryDao;
 
-
     @Override
     public Category save(Category category) {
         return categoryDao.save(category);

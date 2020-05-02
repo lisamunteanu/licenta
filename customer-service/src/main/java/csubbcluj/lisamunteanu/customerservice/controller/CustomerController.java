@@ -58,13 +58,13 @@ public class CustomerController {
         }
     }
 
-    @GetMapping("/username")
-    public ResponseEntity<?> findCustomerByName(@PathVariable String username) {
+    @GetMapping("/by")
+    public ResponseEntity<?> findCustomerByName(@RequestParam String username) {
         Optional<Customer> optionalCustomer = customerService.findByName(username);
         if (optionalCustomer.isPresent()) {
-            return new ResponseEntity<>(optionalCustomer.get(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(optionalCustomer.get(), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(null, HttpStatus.OK);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 

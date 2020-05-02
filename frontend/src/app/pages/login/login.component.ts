@@ -46,6 +46,7 @@ export class LoginComponent implements OnInit {
     this.credentials.password = this.f.password.value;
 
     this.authService.authenticate(this.credentials).subscribe(data => {
+        this.authService.saveCustomerId(this.credentials);
         this.router.navigate([this.returnUrl]);
       },
       error => {

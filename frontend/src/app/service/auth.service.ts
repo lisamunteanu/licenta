@@ -3,6 +3,9 @@ import {Injectable} from '@angular/core';
 import {Credentials} from "../model/credentials.model";
 import {map} from "rxjs/operators";
 import {Observable} from "rxjs";
+import {CustomerService} from "./customer.service";
+import {Customer} from "../model/customer.model";
+import {Product} from "../model/product.model";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +13,7 @@ import {Observable} from "rxjs";
 export class AuthService {
   public resourceUrl = 'http://localhost:80/auth/';
 
-  constructor(protected http: HttpClient) {
+  constructor(protected http: HttpClient, private customerService: CustomerService) {
   }
 
   authenticate(credentials: Credentials): Observable<any> {
@@ -24,9 +27,17 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('access_token');
+    localStorage.removeItem('customer_id');
   }
 
   public isLoggedIn(): boolean {
     return localStorage.getItem('access_token') !== null;
+  }
+
+  public saveCustomerId(credentials: Credentials): void {
+    this.customerService.findByUsername(credentials.username).subscribe((rez: HttpResponse<Customer>) => {
+      console.log(rez.body.id.toString());
+      localStorage.setItem('customer_id', rez.body.id.toString());
+    });
   }
 }
