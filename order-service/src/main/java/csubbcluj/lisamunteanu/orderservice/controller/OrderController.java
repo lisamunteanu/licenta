@@ -13,10 +13,10 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@RestController
 @CrossOrigin(
         origins = {"*"}
 )
+@RestController
 public class OrderController {
     @Autowired
     private OrderService orderService;

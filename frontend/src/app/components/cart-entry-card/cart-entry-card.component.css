@@ -1,0 +1,21 @@
+.card{
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.cart-entry-name{
+  font-size: 28px;
+}
+
+.cart-entry-image{
+  width: 200px;
+}
+
+.middle-container{
+  margin-top: 50px;
+}
+
+.bottom-container{
+  margin-top:30px;
+  float: right;
+}

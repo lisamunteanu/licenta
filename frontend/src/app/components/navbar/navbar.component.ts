@@ -15,11 +15,20 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  redirectTo() {
+  redirectToMyAccount() {
     if (this.authService.isLoggedIn()) {
       this.router.navigate(['/my-account']);
     }
-    else{
+    else {
+      this.router.navigate(['/login']);
+    }
+  }
+
+  redirectToMyCart() {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/my-cart']);
+    }
+    else {
       this.router.navigate(['/login']);
     }
   }

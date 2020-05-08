@@ -18,4 +18,7 @@ public interface CartEntryDao extends JpaRepository<CartEntry, Integer> {
             " inner join cart_to_cartentry cc on ce.id = cc.cart_entry_id" +
             " inner join carts c on c.id=cc.cart_id where c.user_id=:userId", nativeQuery = true)
     List<Object[]> findByUserId(@Param("userId") Integer userId);
+
+    @Query(value = "select * from cart_entries c inner join cart_to_cartentry cc on c.id=cc.cart_entry_id where cc.cart_id = :cartId", nativeQuery = true)
+    List<CartEntry> getAllByCartId(@Param("cartId") Integer cartId);
 }

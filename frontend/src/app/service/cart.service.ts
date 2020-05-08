@@ -22,4 +22,25 @@ export class CartService {
       .get<CartEntry[]>(`${this.resourceUrl}/cart-entries/by`, {params: parameters, observe: 'response'});
   }
 
+  addToCart(cartEntry?: CartEntry, userId?: string): Observable<CartEntryResponseType> {
+    let parameters = new HttpParams();
+    parameters = parameters.append('userId', userId);
+
+    return this.http
+      .post<CartEntry>(`${this.resourceUrl}/add-to-cart`, cartEntry, {
+        params: parameters,
+        observe: 'response'
+      });
+  }
+
+  removeOrUpdateCart(cartEntryId?: string, userId?: string): Observable<any> {
+    let parameters = new HttpParams();
+    parameters = parameters.append('cartEntryId', cartEntryId);
+    parameters = parameters.append('userId', userId);
+    return this.http.delete(`${this.resourceUrl}/cart-entries/by`, {
+      params: parameters,
+      observe: 'response'
+    });
+  }
+
 }

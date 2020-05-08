@@ -3,8 +3,10 @@ package csubbcluj.lisamunteanu.orderservice.service.impl;
 import csubbcluj.lisamunteanu.orderservice.dao.CartDao;
 import csubbcluj.lisamunteanu.orderservice.dao.CartEntryDao;
 import csubbcluj.lisamunteanu.orderservice.dao.CartToCartEntryRelationDao;
+import csubbcluj.lisamunteanu.orderservice.dtos.CartEntryDTO;
 import csubbcluj.lisamunteanu.orderservice.model.*;
 import csubbcluj.lisamunteanu.orderservice.service.CartService;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -80,5 +82,48 @@ public class CartServiceImpl implements CartService {
             result.add(cartEntry);
         }
         return result;
+    }
+
+    @Override
+    public void removeOrUpdateCart(Integer userId,CartEntry cartEntry) throws Exception {
+        Optional<Cart> optionalCart = this.findByUser(userId);
+        if (optionalCart.isPresent()) {
+            Cart cart = optionalCart.get();
+            Optional<CartEntry> optionalCartEntry = cartEntryDao.findByProductId(cartEntry.getProductId());
+            //verify if cart entry already exists--search by product code
+            if (optionalCartEntry.isPresent()) {
+                CartEntry foundCartEntry = optionalCartEntry.get();
+                Optional<CartToCartEntryRelation> optRel = relationDao.findById(new CartToCartEntryId(cart.getId(), foundCartEntry.getId()));
+
+                if (optRel.isPresent()) {
+                    CartToCartEntryRelation relation = optRel.get();
+
+                    if (relation.getQuantity() == 1) {
+                        relationDao.delete(relation);
+                        List<CartToCartEntryRelation> allCartEntries = relationDao.findByCartEntryId(foundCartEntry.getId());
+
+                        //verify if the cartEntry exists in another cart/carts; if not-> delete it.
+                        if (allCartEntries.isEmpty()) {
+                            cartEntryDao.delete(foundCartEntry);
+                        }
+                        //verify if it was the last cartEntry from the cart; if true-> delete cart
+                        List<CartEntry> cartEntriesOfCart = cartEntryDao.getAllByCartId(cart.getId());
+                        if (cartEntriesOfCart.isEmpty()) {
+                            cartDao.delete(cart);
+                        }
+                    } else if (relation.getQuantity() > 1) {
+                        relation.setQuantity(relation.getQuantity() - 1);
+                        relationDao.save(relation);
+                    }
+                }
+
+            }
+            else{
+                throw new Exception("Cart entry found");
+            }
+        }
+        else{
+            throw new Exception("Cart not found");
+        }
     }
 }

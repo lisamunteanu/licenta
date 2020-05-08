@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Product} from '../../model/product.model';
 import {ProductService} from '../../service/product.service';
 import {HttpResponse} from '@angular/common/http';
-import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-products-listing',

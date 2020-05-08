@@ -1,9 +1,10 @@
 <div class="navbar navbar-expand-lg justify-content-center navbar-custom">
   <div class="navbar-element-icons">
-    <a matTooltip="Menu" class="navbar-brand" href="#">
+    <a matTooltip="Menu" class="navbar-brand">
       <img class="images-navbar" src="/assets/images/menuIcon.png">
     </a>
-    <a matTooltip="Home" class="navbar-brand" href="#">
+
+    <a matTooltip="Home" class="navbar-brand" [routerLink]="['/']">
       <img class="images-navbar" src="/assets/images/LogoFundalTransparent.png">
     </a>
   </div>
@@ -19,8 +20,8 @@
 
   <div class="navbar-element-account">
     <ul class="nav navbar-nav">
-      <li><a matTooltip="Contul meu" class="nav-item nav-link" (click)="redirectTo()"><img class="images-navbar" src="/assets/images/account.png"/></a></li>
-      <li><a matTooltip="Cosul meu" class="nav-item nav-link" href="#"><img class="images-navbar" src="/assets/images/cart.png"/></a></li>
+      <li><a matTooltip="Contul meu" class="nav-item nav-link" (click)="redirectToMyAccount()"><img class="images-navbar" src="/assets/images/account.png"/></a></li>
+      <li><a matTooltip="Cosul meu" class="nav-item nav-link" (click)="redirectToMyCart()"><img class="images-navbar" src="/assets/images/cart.png"/></a></li>
     </ul>
   </div>
 </div>

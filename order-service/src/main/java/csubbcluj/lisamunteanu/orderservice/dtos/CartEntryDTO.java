@@ -1,4 +1,4 @@
-package csubbcluj.lisamunteanu.orderservice.model;
+package csubbcluj.lisamunteanu.orderservice.dtos;
 
 import java.io.Serializable;
 

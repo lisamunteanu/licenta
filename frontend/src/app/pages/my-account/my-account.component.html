@@ -1,1 +1,17 @@
-<p>my-account works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-2"></div>
+
+    <div class="row container-fluid">
+      <div class="col-md-8">
+        <div *ngIf="customer" class="welcome-text">
+          <h1>Salut, {{customer.name}}</h1>
+          <h2>Bine ai venit in contul tau!</h2>
+        </div>
+        <button class="btn btn-outline-secondary" (click)="logOut()">Log out</button>
+      </div>
+    </div>
+
+    <div class="col-md-2"></div>
+  </div>
+</div>

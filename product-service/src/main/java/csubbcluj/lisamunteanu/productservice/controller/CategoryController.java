@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-@RestController
 @CrossOrigin(
         origins = {"*"}
 )
+@RestController
 @RequestMapping("/categories")
 public class CategoryController {
 
@@ -26,28 +26,28 @@ public class CategoryController {
     }
 
     @GetMapping("/{categoryId}")
-    public ResponseEntity<Map<String, Category>> findProductById(@PathVariable String categoryId) {
+    public ResponseEntity<Category> findProductById(@PathVariable String categoryId) {
         Optional<Category> optionalCategory = categoryService.findById(Integer.parseInt(categoryId));
-        Map<String, Category> response = new HashMap<>();
         if (optionalCategory.isPresent()) {
-            response.put("Category found", optionalCategory.get());
-            return new ResponseEntity<>(response, HttpStatus.OK);
+            return new ResponseEntity<>(optionalCategory.get(), HttpStatus.OK);
         } else {
-            response.put("Category not found", null);
-            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>((Category) null, HttpStatus.NOT_FOUND);
         }
     }
 
     @PostMapping
-    public ResponseEntity<Map<String, Category>> saveProduct(@RequestBody Category category) {
+    public ResponseEntity<Category> saveCategory(@RequestBody Category category) {
         Category savedCategory = categoryService.save(category);
-        Map<String, Category> response = new HashMap<>();
         if (Objects.isNull(savedCategory.getId())) {
-            response.put("Error while saving the category", null);
-            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(category, HttpStatus.NO_CONTENT);
         } else {
-            response.put("Category saved", savedCategory);
-            return new ResponseEntity<>(response, HttpStatus.OK);
+            return new ResponseEntity<>((Category) null, HttpStatus.OK);
         }
+    }
+
+    @GetMapping("/menu")
+    public ResponseEntity<List<Category>> getUniverseCategories(){
+        List<Category> universes = categoryService.getAllUniverseCategories();
+        return new ResponseEntity<>(universes,HttpStatus.OK);
     }
 }

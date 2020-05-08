@@ -45,15 +45,12 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Map<String, Product>> saveProduct(@RequestBody Product product) {
+    public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
         Product savedProduct = productService.save(product);
-        Map<String, Product> response = new HashMap<>();
         if (Objects.isNull(savedProduct.getId())) {
-            response.put("Error while saving the product", null);
-            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(savedProduct, HttpStatus.NO_CONTENT);
         } else {
-            response.put("Product saved", savedProduct);
-            return new ResponseEntity<>(response, HttpStatus.OK);
+            return new ResponseEntity<>((Product) null, HttpStatus.OK);
         }
     }
 }

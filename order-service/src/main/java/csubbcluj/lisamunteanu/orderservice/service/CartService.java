@@ -2,7 +2,7 @@ package csubbcluj.lisamunteanu.orderservice.service;
 
 import csubbcluj.lisamunteanu.orderservice.model.Cart;
 import csubbcluj.lisamunteanu.orderservice.model.CartEntry;
-import csubbcluj.lisamunteanu.orderservice.model.CartEntryDTO;
+import csubbcluj.lisamunteanu.orderservice.dtos.CartEntryDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,4 +16,6 @@ public interface CartService {
     List<CartEntry> getAllCartEntries();
 
     List<CartEntryDTO> getCartEntriesByUserId(Integer userId);
+
+    void removeOrUpdateCart(Integer userId,CartEntry cartEntry) throws Exception;
 }

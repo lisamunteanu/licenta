@@ -11,4 +11,6 @@ public interface CategoryService {
     List<Category> findAll();
 
     Optional<Category> findById(Integer id);
+
+    List<Category> getAllUniverseCategories();
 }

@@ -23,11 +23,9 @@
         Marca: {{product.brand}}
       </div>
       <div>
-        <form class="add-to-cart">
-          <button mat-flat-button class="add-to-cart-button" type="submit">
-            <img src="assets/images/addTocartIcon.png"/>
-          </button>
-        </form>
+        <button mat-flat-button class="add-to-cart-button" (click)="addToCart()">
+          <img src="assets/images/addTocartIcon.png"/>
+        </button>
       </div>
     </div>
 

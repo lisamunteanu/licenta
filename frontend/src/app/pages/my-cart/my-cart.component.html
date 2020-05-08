@@ -1,1 +1,16 @@
-<p>my-cart works!</p>
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <div class="row text-my-cart">Cosul meu</div>
+    <div class="row">
+      <div class="col-md-12 cart-entry" *ngFor="let cartEntry of cartEntries">
+        <app-cart-entry-card [cartEntry]="cartEntry"></app-cart-entry-card>
+      </div>
+    </div>
+    <div class="row btn-checkout-container float-right">
+      <button class="btn btn-outline-secondary next-button" [routerLink]="['/checkout']">Checkout</button></div>
+  </div>
+  <div class="col-md-2"></div>
+</div>
+
+

@@ -16,16 +16,23 @@ import {MatButtonModule} from '@angular/material/button';
 import {LoginModule} from './pages/login/login.module';
 import {RegisterModule} from './pages/register/register.module';
 import {MyAccountModule} from './pages/my-account/my-account.module';
-import { MyCartComponent } from './my-cart/my-cart.component';
-import { CartEntryCardComponent } from './components/cart-entry-card/cart-entry-card.component';
+import {MyCartModule} from './pages/my-cart/my-cart.module';
+import {OrderConfirmationModule} from './pages/order-confirmation/order-confirmation.module';
+import {CheckoutModule} from './pages/checkout/checkout.module';
+import {SideMenuModule} from "./components/side-menu/side-menu-module";
+import {MatTabsModule} from "@angular/material/tabs";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
+import {MatCardModule} from "@angular/material/card";
+import {MatSidenav, MatSidenavContainer, MatSidenavContent, MatSidenavModule} from "@angular/material/sidenav";
+import {MatListModule, MatNavList} from "@angular/material/list";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    FooterComponent,
-    MyCartComponent,
-    CartEntryCardComponent
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +47,10 @@ import { CartEntryCardComponent } from './components/cart-entry-card/cart-entry-
     MatButtonModule,
     LoginModule,
     RegisterModule,
-    MyAccountModule
+    MyAccountModule,
+    MyCartModule,
+    OrderConfirmationModule,
+    CheckoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]

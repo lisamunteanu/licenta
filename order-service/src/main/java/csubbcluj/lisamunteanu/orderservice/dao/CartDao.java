@@ -13,4 +13,5 @@ public interface CartDao extends JpaRepository<Cart,Integer> {
 
     @Query(value ="select * from carts c where c.user_id = :userId limit 1" ,nativeQuery = true)
     Optional<Cart> findByUser(@Param("userId") Integer userId);
+
 }

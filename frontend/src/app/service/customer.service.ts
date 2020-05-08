@@ -26,6 +26,11 @@ export class CustomerService {
       .get<Customer>(`${this.resourceUrl}/by`, {params: parameters, observe: 'response'});
   }
 
+  findById(id: string): Observable<EntityResponseType> {
+    return this.http
+      .get<Customer>(`${this.resourceUrl}/${id}`, {observe: 'response'});
+  }
+
   register(customer: Customer): Observable<{}> {
     return this.http.post<string>(this.resourceUrl + '/register', customer);
   }

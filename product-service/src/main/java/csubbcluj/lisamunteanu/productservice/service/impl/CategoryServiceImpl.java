@@ -29,4 +29,9 @@ public class CategoryServiceImpl implements CategoryService {
     public Optional<Category> findById(Integer id) {
         return categoryDao.findById(id);
     }
+
+    @Override
+    public List<Category> getAllUniverseCategories() {
+        return categoryDao.getCategoryBySuperCategory("root");
+    }
 }

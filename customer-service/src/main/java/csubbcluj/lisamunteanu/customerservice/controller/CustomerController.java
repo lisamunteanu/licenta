@@ -33,13 +33,15 @@ public class CustomerController {
         return customerService.findAllCustomers();
     }
 
-//    @GetMapping("/{id}")
-//    public Customer getCustomerById(@PathVariable int id) {
-//        return customers.stream()
-//                .filter(customer -> customer.getId() == id)
-//                .findFirst()
-//                .orElseThrow(IllegalArgumentException::new);
-//    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Customer> getCustomerById(@PathVariable String id) {
+        Optional<Customer> optionalCustomer = customerService.findById(Integer.parseInt(id));
+        if (optionalCustomer.isPresent()) {
+            return new ResponseEntity<>(optionalCustomer.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(new Customer(), HttpStatus.NOT_FOUND);
+        }
+    }
 
     @GetMapping("/{id}/orders")
     public Object getOrdersForCustomer(@PathVariable int id) {
@@ -47,12 +49,11 @@ public class CustomerController {
     }
 
     @PostMapping("/register")
-    public HttpStatus register(@RequestBody Customer customer){
+    public HttpStatus register(@RequestBody Customer customer) {
         Optional<Customer> optCustomer = customerService.findByName(customer.getUsername());
-        if(optCustomer.isPresent()){
-           return HttpStatus.IM_USED;
-        }
-        else{
+        if (optCustomer.isPresent()) {
+            return HttpStatus.IM_USED;
+        } else {
             customerService.saveCustomer(customer);
             return HttpStatus.OK;
         }

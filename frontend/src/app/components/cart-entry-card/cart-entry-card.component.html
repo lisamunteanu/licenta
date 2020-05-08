@@ -1,0 +1,15 @@
+<div class="card">
+  <div class="card-body row">
+    <div class="cart-entry-image-container col-md-4">
+      <img class="cart-entry-image" src="/assets/images/{{cartEntry.productImage}}"/>
+    </div>
+    <div class="col-md-6 middle-container">
+      <div class="cart-entry-name">{{cartEntry.productName}}</div>
+      <div class="cart-entry-price">!!Price</div>
+    </div>
+    <div class="col-md-2 bottom-container">
+        <div class="cart-entry-quantity">Cantitate: {{cartEntry.quantity}}</div>
+        <button class="btn btn-outline-secondary" (click)="removeFromCart()">Sterge</button>
+    </div>
+  </div>
+</div>

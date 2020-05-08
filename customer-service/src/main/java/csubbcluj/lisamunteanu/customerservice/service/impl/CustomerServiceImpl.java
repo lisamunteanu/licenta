@@ -42,4 +42,9 @@ public class CustomerServiceImpl implements CustomerService {
     public Optional<Customer> findByName(String username) {
         return customerDao.findByUsername(username);
     }
+
+    @Override
+    public Optional<Customer> findById(Integer id) {
+        return customerDao.findById(id);
+    }
 }

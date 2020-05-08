@@ -25,6 +25,18 @@ const routes: Routes = [
   {
     path: 'my-account',
     loadChildren: () => import('./pages/my-account/my-account.module').then(m => m.MyAccountModule)
+  },
+  {
+    path: 'my-cart',
+    loadChildren: () => import('./pages/my-cart/my-cart.module').then(m => m.MyCartModule)
+  },
+  {
+    path: 'checkout',
+    loadChildren: () => import('./pages/checkout/checkout.module').then(m => m.CheckoutModule)
+  },
+  {
+    path: 'order-confirmation',
+    loadChildren: () => import('./pages/order-confirmation/order-confirmation.module').then(m => m.OrderConfirmationModule)
   }
 ];
 
