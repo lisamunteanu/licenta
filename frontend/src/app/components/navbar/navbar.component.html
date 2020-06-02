@@ -1,27 +1,68 @@
-<div class="navbar navbar-expand-lg justify-content-center navbar-custom">
-  <div class="navbar-element-icons">
-    <a matTooltip="Menu" class="navbar-brand">
-      <img class="images-navbar" src="/assets/images/menuIcon.png">
+<!--Navbar-->
+<mdb-navbar class="navCss" SideClass="navbar navbar-expand-lg unique-color" [containerInside]="false">
+
+  <!-- Navbar brand -->
+  <mdb-navbar-brand>
+    <a class="navbar-brand" href="#" [routerLink]="['/']">
+      <img class="images-navbar" src="/assets/images/LogoFundalTransparent.png"/>
     </a>
+  </mdb-navbar-brand>
 
-    <a matTooltip="Home" class="navbar-brand" [routerLink]="['/']">
-      <img class="images-navbar" src="/assets/images/LogoFundalTransparent.png">
-    </a>
-  </div>
+  <!-- Collapsible content -->
+  <links>
 
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
 
-  <div class="navbar-element-form">
-    <form class="form-inline my-0 my-lg-0 search-form">
-      <input class="form-control mr-sm-3 search-input" type="search" placeholder="Cauta un produs"
-             aria-label="Search">
-      <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Cauta</button>
-    </form>
-  </div>
+      <!-- Dropdown -->
+      <li class="nav-item dropright" dropdown>
+        <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+          <img class="images-navbar" src="/assets/images/menuIcon.png"/><span class="caret"></span></a>
+        <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+          <!--<a class="dropdown-item waves-light" mdbWavesEffect href="#">Action</a>-->
+          <!--<a class="dropdown-item waves-light" mdbWavesEffect href="#">Another action</a>-->
+          <!--<a class="dropdown-item waves-light" mdbWavesEffect href="#">Something else here</a>-->
+          <!--<div class="divider dropdown-divider"></div>-->
+          <!--<a class="dropdown-item waves-light" mdbWavesEffect href="#">Separated link</a>-->
+          <div *ngFor="let category of universeCategories">
+            <a class="dropdown-item waves-light" mdbWavesEffect (click)="goToProductsPage(category.id)">{{category.name}}</a>
+            <div class="dropdown-divider"></div>
+          </div>
+        </div>
+      </li>
 
-  <div class="navbar-element-account">
-    <ul class="nav navbar-nav">
-      <li><a matTooltip="Contul meu" class="nav-item nav-link" (click)="redirectToMyAccount()"><img class="images-navbar" src="/assets/images/account.png"/></a></li>
-      <li><a matTooltip="Cosul meu" class="nav-item nav-link" (click)="redirectToMyCart()"><img class="images-navbar" src="/assets/images/cart.png"/></a></li>
     </ul>
-  </div>
-</div>
+    <!-- Links -->
+
+    <ul class="navbar-nav ml-auto nav-flex-icons">
+      <li class="nav-item">
+        <!-- Search form -->
+        <form type="submit" class="form-inline waves-light" mdbWavesEffect>
+          <div class="md-form my-0">
+            <input (keydown.enter)="searchFor($event)" #searchKeyWord id="searchKeyword" class="form-control mr-sm-2" type="text" placeholder="Cauta un produs"/>
+          </div>
+        </form>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="redirectToMyCart()">
+          <mdb-icon fas icon="shopping-cart fa-2x" mdbTooltip="Cosul meu"></mdb-icon>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link">
+          <div class="btn-group" mdbDropdown>
+            <mdb-icon fas icon="user fa-2x" mdbDropdownToggle></mdb-icon>
+            <div class="dropdown-menu dropdown-menu-right dropdown-primary">
+              <a *ngIf="authService.isLoggedIn()" class="dropdown-item" (click)="redirectToMyAccount()">Contul meu</a>
+              <a *ngIf="authService.isLoggedIn()" class="dropdown-item" (click)="logout()">Deconectare</a>
+              <a *ngIf="!authService.isLoggedIn()" class="dropdown-item" [routerLink]="['/login']">Conectare</a>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </links>
+  <!-- Collapsible content -->
+
+</mdb-navbar>
+<!--/.Navbar-->

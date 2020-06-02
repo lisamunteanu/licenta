@@ -34,4 +34,10 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findAllProductsFromCategory(Integer categoryId) {
         return productDao.findAllProductsFromCategory(categoryId);
     }
+
+    @Override
+    public List<Product> searchByKeyword(String keyword) {
+        return productDao.findAllByKeyword(keyword);
+    }
+
 }

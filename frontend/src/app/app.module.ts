@@ -19,24 +19,21 @@ import {MyAccountModule} from './pages/my-account/my-account.module';
 import {MyCartModule} from './pages/my-cart/my-cart.module';
 import {OrderConfirmationModule} from './pages/order-confirmation/order-confirmation.module';
 import {CheckoutModule} from './pages/checkout/checkout.module';
-import {SideMenuModule} from "./components/side-menu/side-menu-module";
-import {MatTabsModule} from "@angular/material/tabs";
-import {MatMenuModule} from "@angular/material/menu";
-import {MatToolbarModule} from "@angular/material/toolbar";
-import {MatIconModule} from "@angular/material/icon";
-import {MatCardModule} from "@angular/material/card";
-import {MatSidenav, MatSidenavContainer, MatSidenavContent, MatSidenavModule} from "@angular/material/sidenav";
-import {MatListModule, MatNavList} from "@angular/material/list";
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { NoResultsFoundComponent } from './pages/no-results-found/no-results-found.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    NoResultsFoundComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MDBBootstrapModule.forRoot(),
     BrowserAnimationsModule,
     NgbModule,
     HttpClientModule,

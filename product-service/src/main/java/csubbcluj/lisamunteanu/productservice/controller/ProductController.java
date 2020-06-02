@@ -34,11 +34,11 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/category")
-    public ResponseEntity<List<Product>> findAllProductsByCategory(@RequestParam(name="id") String categoryId) {
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<List<Product>> findAllProductsByCategory(@PathVariable String categoryId) {
         List<Product> productsFromCategory = productService.findAllProductsFromCategory(Integer.parseInt(categoryId));
         if (productsFromCategory.isEmpty()) {
-            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(productsFromCategory, HttpStatus.OK);
         }
@@ -51,6 +51,17 @@ public class ProductController {
             return new ResponseEntity<>(savedProduct, HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>((Product) null, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Product>> findAllByKeyword(@RequestParam("keyword") String keyword){
+        List<Product> foundProducts = productService.searchByKeyword(keyword);
+        if(foundProducts.isEmpty()){
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NO_CONTENT);
+        }
+        else{
+            return new ResponseEntity<>(foundProducts,HttpStatus.OK);
         }
     }
 }

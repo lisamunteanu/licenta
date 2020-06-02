@@ -45,7 +45,7 @@ public class CategoryController {
         }
     }
 
-    @GetMapping("/menu")
+    @GetMapping("/universe")
     public ResponseEntity<List<Category>> getUniverseCategories(){
         List<Category> universes = categoryService.getAllUniverseCategories();
         return new ResponseEntity<>(universes,HttpStatus.OK);

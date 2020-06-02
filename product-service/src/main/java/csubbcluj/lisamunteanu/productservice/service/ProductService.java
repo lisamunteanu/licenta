@@ -13,4 +13,6 @@ public interface ProductService {
     Optional<Product> findById(Integer id);
 
     List<Product> findAllProductsFromCategory(Integer categoryId);
+
+    List<Product> searchByKeyword(String keyword);
 }
