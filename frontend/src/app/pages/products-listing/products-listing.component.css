@@ -1,3 +1,5 @@
 .search-result-message{
-  border: 1px solid #023750;
+  margin-top: 20px;
+  border: 1px solid lightgrey;
+  color: #023750;
 }

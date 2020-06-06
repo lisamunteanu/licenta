@@ -24,19 +24,31 @@ public class Order implements Serializable {
     @Column(name = "paymentMode")
     private String paymentMode;
 
-    @OneToOne
-    @JoinColumn(name = "idCart")
-    private Cart cart;
+    @Column(name= "productsTotal")
+    private Double productsTotal;
+
+    @Column(name = "totalDiscount")
+    private Double totalDiscount;
+
+    @Column(name = "deliveryCost")
+    private Double deliveryCost;
+
+    @Column(name = "totalPrice")
+    private Double totalPrice;
 
     public Order() {
     }
 
-    public Order(Integer userId, LocalDateTime date, String deliveryMode, String paymentMode, Cart cart) {
+    public Order(Integer userId, LocalDateTime date, String deliveryMode, String paymentMode, Double productsTotal,
+                 Double totalDiscount, Double deliveryCost, Double totalPrice) {
         this.userId = userId;
         this.date = date;
         this.deliveryMode = deliveryMode;
         this.paymentMode = paymentMode;
-        this.cart = cart;
+        this.productsTotal = productsTotal;
+        this.totalDiscount = totalDiscount;
+        this.deliveryCost = deliveryCost;
+        this.totalPrice = totalPrice;
     }
 
     public Integer getId() {
@@ -79,11 +91,35 @@ public class Order implements Serializable {
         this.paymentMode = paymentMode;
     }
 
-    public Cart getCart() {
-        return cart;
+    public Double getProductsTotal() {
+        return productsTotal;
     }
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
+    public void setProductsTotal(Double productsTotal) {
+        this.productsTotal = productsTotal;
+    }
+
+    public Double getTotalDiscount() {
+        return totalDiscount;
+    }
+
+    public void setTotalDiscount(Double totalDiscount) {
+        this.totalDiscount = totalDiscount;
+    }
+
+    public Double getDeliveryCost() {
+        return deliveryCost;
+    }
+
+    public void setDeliveryCost(Double deliveryCost) {
+        this.deliveryCost = deliveryCost;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

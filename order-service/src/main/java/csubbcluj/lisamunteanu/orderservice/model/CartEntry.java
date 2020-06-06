@@ -26,15 +26,32 @@ public class CartEntry implements Serializable {
     @Column(name = "product_id")
     private Integer productId;
 
+    @Column(name = "price_with_vat")
+    private Double priceWithVAT;
+
+    @Column(name = "price_without_vat")
+    private Double priceWithoutVAT;
+
+    @Column(name = "price_discount")
+    private Double discount;
+
+    @Column(name = "price_vat")
+    private Double productPriceVAT;
+
     public CartEntry() {
     }
 
-    public CartEntry(String productName, String productBrand, String productImage, String productDescription, Integer productId) {
+    public CartEntry(String productName, String productBrand, String productImage, String productDescription,
+                     Integer productId, Double priceWithVAT, Double priceWithoutVAT, Double discount, Double productPriceVAT) {
         this.productName = productName;
         this.productBrand = productBrand;
         this.productImage = productImage;
         this.productDescription = productDescription;
         this.productId = productId;
+        this.priceWithVAT = priceWithVAT;
+        this.priceWithoutVAT = priceWithoutVAT;
+        this.discount = discount;
+        this.productPriceVAT = productPriceVAT;
     }
 
     public Integer getId() {
@@ -83,5 +100,37 @@ public class CartEntry implements Serializable {
 
     public void setProductId(Integer productId) {
         this.productId = productId;
+    }
+
+    public Double getPriceWithVAT() {
+        return priceWithVAT;
+    }
+
+    public void setPriceWithVAT(Double priceWithVAT) {
+        this.priceWithVAT = priceWithVAT;
+    }
+
+    public Double getPriceWithoutVAT() {
+        return priceWithoutVAT;
+    }
+
+    public void setPriceWithoutVAT(Double priceWithoutVAT) {
+        this.priceWithoutVAT = priceWithoutVAT;
+    }
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
+    public Double getProductPriceVAT() {
+        return productPriceVAT;
+    }
+
+    public void setProductPriceVAT(Double productPriceVAT) {
+        this.productPriceVAT = productPriceVAT;
     }
 }

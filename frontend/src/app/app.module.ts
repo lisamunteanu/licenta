@@ -20,15 +20,15 @@ import {MyCartModule} from './pages/my-cart/my-cart.module';
 import {OrderConfirmationModule} from './pages/order-confirmation/order-confirmation.module';
 import {CheckoutModule} from './pages/checkout/checkout.module';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import { NoResultsFoundComponent } from './pages/no-results-found/no-results-found.component';
+import {NoResultsFoundModule} from './pages/no-results-found/no-results-found.module';
+import {CategoriesListModule} from "./components/categories-list/categories-list.module";
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    FooterComponent,
-    NoResultsFoundComponent
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +47,9 @@ import { NoResultsFoundComponent } from './pages/no-results-found/no-results-fou
     MyAccountModule,
     MyCartModule,
     OrderConfirmationModule,
-    CheckoutModule
+    CheckoutModule,
+    NoResultsFoundModule,
+    CategoriesListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

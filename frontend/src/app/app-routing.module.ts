@@ -37,6 +37,10 @@ const routes: Routes = [
   {
     path: 'order-confirmation',
     loadChildren: () => import('./pages/order-confirmation/order-confirmation.module').then(m => m.OrderConfirmationModule)
+  },
+  {
+    path: 'no-results-found',
+    loadChildren: () => import('./pages/no-results-found/no-results-found.module').then(m => m.NoResultsFoundModule)
   }
 ];
 

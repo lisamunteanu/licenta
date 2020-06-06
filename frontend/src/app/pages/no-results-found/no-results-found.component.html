@@ -1,1 +1,42 @@
-<p>no-results-found works!</p>
+<div class="no-results-found-container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class=" container col-md-8">
+      <hr class="no-results-found-hr">
+      <div class="message-container justify-content-center">
+        <i class="fas fa-info-circle fa-2x"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+        <h3 class="text-center no-results-found-message"> Din pacate nu s-au gasit rezultate pentru cautarea dvs.
+          :(</h3>
+      </div>
+      <hr class="no-results-found-hr">
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+  <div class="row tips-container">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <h4> Cum sa restrangeti cautarea:</h4>
+      <ul>
+        <li class="tip-element">Verificati ca termenul cautat este scris corect si incercati din nou.</li>
+        <li class="tip-element">Incercati cautarea si cu un sinonim al cuvantului, precum telefon in loc de celular.
+        </li>
+        <li class="tip-element">Incercati sa va rezumati la termeni de cautare cat mai simpli.</li>
+        <li class="tip-element">Cautati produsul dorit in una din categoriile de mai jos.</li>
+      </ul>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+  <div class="row category-container">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 justify-content-around">
+      <div class="categories-container row container-fluid">
+        <div class="col-md-4 category" *ngFor="let category of categories">
+          <a [routerLink]="['/product', category[1]]">
+            <app-categories-list [categoryImage]="category[0]"></app-categories-list>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>

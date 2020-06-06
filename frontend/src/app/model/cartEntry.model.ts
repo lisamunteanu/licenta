@@ -6,6 +6,10 @@ export class CartEntry {
   productBrand?: string;
   productDescription?: string;
   quantity?: number;
+  priceWithVAT?: number;
+  priceWithoutVAT?: number;
+  discount?: number;
+  productPriceVAT?: number;
 
   constructor() {
   }

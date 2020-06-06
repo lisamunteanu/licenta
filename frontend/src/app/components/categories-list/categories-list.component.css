@@ -1,0 +1,18 @@
+.card-body img {
+  height: 100%;
+  width: 100%;
+  color: white;
+  border:none;
+}
+
+.card-footer{
+  border: none;
+}
+
+.card{
+  border: 1px solid #9EA9BD;
+}
+
+.card-body-nou{
+  padding: 0 !important;
+}

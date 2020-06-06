@@ -15,6 +15,10 @@ public class CartEntryConverter extends BaseConverter<CartEntry, CartEntryDTO> {
         dto.setProductDescription(cartEntry.getProductDescription());
         dto.setProductBrand(cartEntry.getProductBrand());
         dto.setProductImage(cartEntry.getProductImage());
+        dto.setPriceWithoutVAT(cartEntry.getPriceWithoutVAT());
+        dto.setPriceWithVAT(cartEntry.getPriceWithVAT());
+        dto.setDiscount(cartEntry.getDiscount());
+        dto.setVat(cartEntry.getProductPriceVAT());
 //        dto.setQuantity(1);//de modificat-->getQuantityForCartEntry
         return dto;
     }
@@ -27,6 +31,10 @@ public class CartEntryConverter extends BaseConverter<CartEntry, CartEntryDTO> {
         cartEntry.setProductDescription(cartEntryDTO.getProductDescription());
         cartEntry.setProductImage(cartEntryDTO.getProductImage());
         cartEntry.setProductBrand(cartEntryDTO.getProductBrand());
+        cartEntry.setPriceWithoutVAT(cartEntryDTO.getPriceWithoutVAT());
+        cartEntry.setPriceWithVAT(cartEntryDTO.getPriceWithVAT());
+        cartEntry.setDiscount(cartEntryDTO.getDiscount());
+        cartEntry.setProductPriceVAT(cartEntryDTO.getVat());
         return cartEntry;
     }
 }

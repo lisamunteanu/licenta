@@ -1,4 +1,5 @@
 package csubbcluj.lisamunteanu.customerservice.model;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -27,12 +28,16 @@ public class Customer implements Serializable {
     @Column(name = "name")
     private String name;
 
-    public Customer(Integer id, String username, String password, String role, String name) {
+    @Column(name = "dateOfBirth")
+    private String dateOfBirth;
+
+    public Customer(Integer id, String username, String password, String role, String name, String dateOfBirth) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.role = role;
         this.name = name;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public Customer() {
@@ -76,5 +81,13 @@ public class Customer implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }

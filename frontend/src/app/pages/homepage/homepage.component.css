@@ -1,3 +1,11 @@
-.recommended-products{
-  height: 800px;
+.categories-container{
+  margin-top: 20px;
+  margin-bottom: 30px;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+
+.category{
+  margin-top: 8px;
+  margin-bottom: 8px;
 }

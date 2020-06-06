@@ -42,7 +42,7 @@ export class ProductsListingComponent implements OnInit {
     this.productService.searchByKeyword(searchKeyword).subscribe((res: HttpResponse<Product[]>) => {
       this.allProducts = res.body ? res.body : [];
       if (this.allProducts.length === 0) {
-        this.router.navigate(['/']);
+        this.router.navigate(['/no-results-found']);
       }
     });
   }

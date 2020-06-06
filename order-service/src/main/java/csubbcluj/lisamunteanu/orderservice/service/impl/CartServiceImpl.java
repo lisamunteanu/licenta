@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -72,20 +73,46 @@ public class CartServiceImpl implements CartService {
         List<CartEntryDTO> result = new ArrayList<>();
         for (Object[] o : objects) {
             CartEntryDTO cartEntry = new CartEntryDTO();
-            cartEntry.setId(Integer.parseInt(o[0].toString()));
-            cartEntry.setProductId(Integer.parseInt(o[1].toString()));
-            cartEntry.setProductName(o[2].toString());
-            cartEntry.setProductImage(o[3].toString());
-            cartEntry.setProductBrand(o[4].toString());
-            cartEntry.setProductDescription(o[5].toString());
-            cartEntry.setQuantity(Integer.parseInt(o[6].toString()));
+            if (Objects.nonNull(o[0])) {
+                cartEntry.setId(Integer.parseInt(o[0].toString()));
+            }
+            if (Objects.nonNull(o[1])) {
+                cartEntry.setProductId(Integer.parseInt(o[1].toString()));
+            }
+            if (Objects.nonNull(o[2])) {
+                cartEntry.setProductName(o[2].toString());
+            }
+            if (Objects.nonNull(o[3])) {
+                cartEntry.setProductImage(o[3].toString());
+            }
+            if (Objects.nonNull(o[4])) {
+                cartEntry.setProductBrand(o[4].toString());
+            }
+            if (Objects.nonNull(o[5])) {
+                cartEntry.setProductDescription(o[5].toString());
+            }
+            if (Objects.nonNull(o[6])) {
+                cartEntry.setQuantity(Integer.parseInt(o[6].toString()));
+            }
+            if (Objects.nonNull(o[7])) {
+                cartEntry.setPriceWithVAT(Double.parseDouble(o[7].toString()));
+            }
+            if (Objects.nonNull(o[8])) {
+                cartEntry.setPriceWithoutVAT(Double.parseDouble(o[8].toString()));
+            }
+            if (Objects.nonNull(o[9])) {
+                cartEntry.setVat(Double.parseDouble(o[9].toString()));
+            }
+            if (Objects.nonNull(o[10])) {
+                cartEntry.setDiscount(Double.parseDouble(o[10].toString()));
+            }
             result.add(cartEntry);
         }
         return result;
     }
 
     @Override
-    public void removeOrUpdateCart(Integer userId,CartEntry cartEntry) throws Exception {
+    public void removeOrUpdateCart(Integer userId, CartEntry cartEntry) throws Exception {
         Optional<Cart> optionalCart = this.findByUser(userId);
         if (optionalCart.isPresent()) {
             Cart cart = optionalCart.get();
@@ -117,12 +144,10 @@ public class CartServiceImpl implements CartService {
                     }
                 }
 
-            }
-            else{
+            } else {
                 throw new Exception("Cart entry found");
             }
-        }
-        else{
+        } else {
             throw new Exception("Cart not found");
         }
     }

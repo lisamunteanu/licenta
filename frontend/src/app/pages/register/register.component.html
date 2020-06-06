@@ -13,29 +13,45 @@
               <span class="input-group-text"><i class="fa fa-user"></i></span>
             </div>
             <input type="text" formControlName="name" class="form-control input_pass" value="" placeholder="Nume si Prenume">
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+              <div *ngIf="f.name.errors.required">Introducerea numelui este obligatorie</div>
+            </div>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-append">
               <span class="input-group-text"><i class="fa fa-envelope"></i></span>
             </div>
             <input type="text" formControlName="email" class="form-control input_user" value="" placeholder="Adresa de e-mail">
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+              <div *ngIf="f.email.errors.required">Introducerea adresei de e-mail este obligatorie</div>
+              <div *ngIf="f.email.errors.email">Adresa de e-mail introdusa trebuie sa fie valida</div>
+            </div>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-append">
               <span class="input-group-text"><i class="fa fa-key"></i></span>
             </div>
             <input type="password" formControlName="password" class="form-control input_pass" value="" placeholder="Parola">
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+              <div *ngIf="f.password.errors.required">Introducerea parolei este obligatorie</div>
+              <div *ngIf="f.password.errors.minlength">Parola trebuie sa aiba minim 6 caractere</div>
+            </div>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-append">
               <span class="input-group-text"><i class="fa fa-exclamation-circle"></i></span>
             </div>
             <input type="password" formControlName="confirm" class="form-control input_pass" value="" placeholder="Confirma parola">
+            <div *ngIf="submitted && f.confirm.errors" class="invalid-feedback">
+              <div *ngIf="f.confirm.errors.required">Introducerea confirmarii parolei este obligatorie</div>
+              <div *ngIf="f.confirm.errors.mustMatch">Parolele trebuie sa se potriveasca</div>
+            </div>
           </div>
 
 
           <div class="d-flex justify-content-center mt-5 login_container">
-            <button type="submit" name="button" class="btn login_btn">Inregistreaza-ma!</button>
+            <button type="submit" name="button" class="btn login_btn">Inregistreaza-ma!</button>&nbsp;&nbsp;
+            <button class="btn cancel_btn" type="reset" (click)="onReset()">Anuleaza</button>
           </div>
         </form>
       </div>

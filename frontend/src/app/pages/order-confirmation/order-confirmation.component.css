@@ -1,0 +1,32 @@
+.order-confirmation-page{
+  color: #023750;
+}
+
+.thank-you-message-col{
+  margin-top: 40px;
+}
+
+.order-confirmation-page hr{
+  border-color: #023750;
+}
+
+.thank-you-message{
+  font-size: 25px;
+}
+
+.categories-container{
+  margin-top: 20px;
+  margin-bottom: 30px;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+
+.category{
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.order-information-container{
+  margin-bottom: 80px;
+}
+

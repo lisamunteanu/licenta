@@ -1,0 +1,90 @@
+.container{
+  color: #023750;
+}
+.tabs-container{
+  margin-top: 20px;
+  height: 700px;
+}
+.welcome-message-hr {
+  border-color: #023750 !important;
+}
+
+.welcome-message{
+  display: grid;
+}
+
+* {box-sizing: border-box}
+
+.tab {
+  float: left;
+  border: 1px solid #ccc;
+  background-color: #eef1f3;
+  width: 30%;
+  height: 100%;
+  position: relative;
+}
+
+.tab button {
+  display: block;
+  background-color: inherit;
+  color: #023750 !important;
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.tab button:hover {
+  background-color: #ddd;
+}
+
+.tab button.active {
+  background-color: #ccc;
+}
+
+.tabcontent {
+  float: left;
+  padding: 0px 12px;
+  border: 1px solid #ccc;
+  width: 70%;
+  border-left: none;
+  height: 100%;
+
+}
+
+.log-out-btn{
+  position: absolute;
+  bottom: 5px;
+}
+
+.tabs{
+  height: 600px;
+}
+
+.title{
+  margin-top: 7px;
+  display: flex;
+}
+
+.customer-details ul {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
+}
+
+.customer-details ul li {
+  /*border: 1px solid #ddd; !* Add a thin border to each list item *!*/
+  margin-top: -1px; /* Prevent double borders */
+  /*background-color: #f6f6f6; !* Add a grey background color *!*/
+  padding: 12px; /* Add some padding */
+  color: #023750;
+}
+
+.details-span{
+  color: #023750;
+}
+
+

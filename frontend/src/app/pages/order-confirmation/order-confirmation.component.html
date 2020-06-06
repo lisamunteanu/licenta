@@ -1,1 +1,29 @@
-<p>order-confirmation works!</p>
+<div class="order-confirmation-page">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 thank-you-message-col">
+      <hr>
+      <div class="text-center thank-you-message"><p>Comanda ta cu numarul -insertNumberHere- a fost inregistrata!</p></div>
+      <hr>
+      <div class="order-information-container text-center">
+        <p>Multumim ca ai ales website-ul nostru!</p>
+        <p>Curand, vei primi un e-mail cu toate detaliile necesare despre comanda ta.</p>
+        <p>Daca vrei sa te intorci pentru mai multe cumparaturi, ai mai jos cateva link-uri utile spre categoriile noastre.</p>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+  <div class="row categories-container">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 justify-content-around">
+      <div class="categories-container row container-fluid">
+        <div class="col-md-4 category" *ngFor="let category of categories">
+          <a [routerLink]="['/product', category[1]]">
+            <app-categories-list [categoryImage]="category[0]"></app-categories-list>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>

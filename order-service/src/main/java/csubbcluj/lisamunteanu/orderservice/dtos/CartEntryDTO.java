@@ -10,11 +10,16 @@ public class CartEntryDTO implements Serializable {
     private String productBrand;
     private String productDescription;
     private Integer quantity;
+    private Double priceWithVAT;
+    private Double priceWithoutVAT;
+    private Double vat;
+    private Double discount;
 
     public CartEntryDTO() {
     }
 
-    public CartEntryDTO(Integer id, Integer productId, String productName, String productImage, String productBrand,String productDescription, Integer quantity) {
+    public CartEntryDTO(Integer id, Integer productId, String productName, String productImage, String productBrand,
+                        String productDescription, Integer quantity, Double priceWithVAT, Double priceWithoutVAT, Double vat, Double discount) {
         this.id = id;
         this.productId = productId;
         this.productName = productName;
@@ -22,6 +27,10 @@ public class CartEntryDTO implements Serializable {
         this.productBrand = productBrand;
         this.productDescription = productDescription;
         this.quantity = quantity;
+        this.priceWithVAT = priceWithVAT;
+        this.priceWithoutVAT = priceWithoutVAT;
+        this.vat = vat;
+        this.discount = discount;
     }
 
     public Integer getId() {
@@ -78,5 +87,37 @@ public class CartEntryDTO implements Serializable {
 
     public void setProductDescription(String productDescription) {
         this.productDescription = productDescription;
+    }
+
+    public Double getPriceWithVAT() {
+        return priceWithVAT;
+    }
+
+    public void setPriceWithVAT(Double priceWithVAT) {
+        this.priceWithVAT = priceWithVAT;
+    }
+
+    public Double getPriceWithoutVAT() {
+        return priceWithoutVAT;
+    }
+
+    public void setPriceWithoutVAT(Double priceWithoutVAT) {
+        this.priceWithoutVAT = priceWithoutVAT;
+    }
+
+    public Double getVat() {
+        return vat;
+    }
+
+    public void setVat(Double vat) {
+        this.vat = vat;
+    }
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
     }
 }

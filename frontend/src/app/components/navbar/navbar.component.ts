@@ -66,6 +66,7 @@ export class NavbarComponent implements OnInit {
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
       this.router.navigate([`/product/` + emptyCategory], {queryParams: {searchKeyword: keyword}});
     });
+    this.searchKeyWord.nativeElement.value = '';
     event.preventDefault();
   }
 

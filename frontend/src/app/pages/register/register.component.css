@@ -38,7 +38,7 @@
 .form_container {
   margin-top: 100px;
 }
-.login_btn {
+.login_btn, .cancel_btn {
   width: 100%;
   background: #023750 !important;
   color: white !important;
@@ -63,4 +63,8 @@
 }
 .custom-checkbox .custom-control-input:checked~.custom-control-label::before {
   background-color: #023750 !important;
+}
+
+.ng-invalid{
+  border: 1px solid red;
 }

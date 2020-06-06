@@ -1,0 +1,30 @@
+.message-container{
+  display: flex;
+}
+.no-results-found-hr{
+  border-color: #023750;
+}
+
+.container, .tips-container{
+  margin-bottom: 70px;
+}
+.no-results-found-container{
+  color: #023750;
+}
+
+.tip-element{
+  font-size: 18px;
+}
+
+.categories-container{
+  margin-top: 20px;
+  margin-bottom: 30px;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+
+.category{
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+

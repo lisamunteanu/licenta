@@ -4,6 +4,7 @@ export class Customer {
   username?: string;
   password?: string;
   role?: string;
+  dateOfBirth?: string;
 
   constructor() {
   }

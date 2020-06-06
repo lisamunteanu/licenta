@@ -1,1 +1,124 @@
-<p>checkout works!</p>
+<div class="checkout-container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-4">
+      <div class="row text-my-products">Produsele dorite:</div>
+      <div class="row my-products">
+        <div class="col-md-12" *ngFor="let cartEntry of cartEntries">
+          <div class="row cart-entry">
+            <div class="col-md-6">
+              <img class="cart-entry-image" src="/assets/images/{{cartEntry.productImage}}"/>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-12">
+                  <h5>{{cartEntry.productName}}</h5>
+                </div>
+              </div>
+              <div class="row mt-5"></div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Pret: </label>{{cartEntry.priceWithVAT}} Lei
+                </div>
+                <div class="col-md-6">
+                  <label>Cantitate: </label>{{cartEntry.quantity}}
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="row right-side-checkout">
+        <div class="col-md-6 mt-3">
+          <div class="checkout-radio-container card row">
+            <div class="card-header payment-mode-header">
+              <h5 class="payment-mode-title text-center">Alegeti modalitatea de plata</h5>
+            </div>
+            <div class="card body payment-mode-body">
+              <div class="custom-control payment-radio">
+                <input type="radio" class="payment-mode-options" id="cashOnDeliveryOption" name="paymentOption">
+                <label class="payment-mode-label" for="cashOnDeliveryOption">&nbsp; Plata la ramburs</label>
+              </div>
+              <div class="custom-control payment-radio">
+                <input type="radio" class="payment-mode-options" id="creditCardOption" name="paymentOption">
+                <label class="payment-mode-label" for="creditCardOption">&nbsp; Plata cu cardul</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mt-3">
+          <div class="checkout-radio-container card row">
+            <div class="card-header delivery-mode-header">
+              <h5 class="delivery-mode-title text-center">&nbsp; Alegeti modalitatea de livrare</h5>
+            </div>
+            <div class="card body delivery-mode-body">
+              <div class="custom-control delivery-radio">
+                <input type="radio" class="delivery-mode-options" (select)="updateDeliveryCost($event,'home-delivery')"
+                       id="homeDelivery" name="deliveryOption">
+                <label class="delivery-mode-label" for="homeDelivery">&nbsp; Livrare la domiciliu</label>
+              </div>
+              <div class="custom-control delivery-radio">
+                <input type="radio" class="delivery-mode-options" (select)="updateDeliveryCost($event,'store-delivery')"
+                       id="storeDelivery" name="deliveryOption">
+                <label class="delivery-mode-label" for="storeDelivery">&nbsp; Ridicare din magazin</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="order-summary-container card col-md-11">
+          <div class="card-header text-center order-summary-header">Sumar comanda</div>
+          <hr>
+          <div class="card-body order-summary-body">
+            <div class="row">
+              <div class="col-md-12 cart-totals">
+                <label class="price-labels">Total produse:</label><span
+                class="price-values"> {{productsTotal}} Lei</span>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-12 cart-totals">
+                <label class="price-labels">Total reducere:</label><span class="price-values"> {{discount}} Lei</span>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div id="deliveryCost" class="col-md-12 cart-totals">
+                <label class="price-labels">Taxa livrare:</label><span class="price-values"> {{deliveryCost}} Lei</span>
+              </div>
+            </div>
+            <hr>
+            <div class="row mt-2">
+              <div id="orderTotals" class="col-md-12 cart-totals">
+                <label class="price-labels">Total comanda:</label><span class="price-values"> {{orderTotal}} Lei</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-11 mt-5">
+          <div class="row justify-content-center">
+            <button class="btn btn-outline-secondary" (click)="placeOrder()">Plaseaza comanda</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 btn-cart-container float-left">
+      <button class="btn btn-outline-secondary next-button" [routerLink]="['/my-cart']">Inapoi la cosul meu</button>
+    </div>
+    <div clas="col-md-2"></div>
+  </div>
+</div>

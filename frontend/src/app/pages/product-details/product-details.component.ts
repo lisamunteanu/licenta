@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {Product} from '../../model/product.model';
 import {ProductService} from '../../service/product.service';
 import {HttpParams, HttpResponse} from '@angular/common/http';
@@ -32,6 +32,7 @@ export class ProductDetailsComponent implements OnInit {
       this.productId = Number(params.get('id'));
     });
     this.initProduct(this.productId);
+    this.hideTabContent(1);
   }
 
   populateCartEntry(cartEntry: CartEntry): void {
@@ -41,6 +42,10 @@ export class ProductDetailsComponent implements OnInit {
     cartEntry.productBrand = this.product.brand;
     cartEntry.productId = this.product.id;
     cartEntry.quantity = 1;
+    cartEntry.priceWithVAT = this.product.price.finalPrice;
+    cartEntry.priceWithoutVAT = this.product.price.priceWithoutVAT;
+    cartEntry.discount = this.product.price.discount;
+    cartEntry.productPriceVAT = this.product.price.vat;
   }
 
   addToCart() {
@@ -56,5 +61,29 @@ export class ProductDetailsComponent implements OnInit {
       });
 
   }
+
+  hideTabContent(contor: number) {
+    let i;
+    let tabcontent;
+    tabcontent = document.getElementsByClassName('tabcontent');
+    for (i = contor; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = 'none';
+    }
+  }
+
+  openTab(event: Event, tabName: string) {
+    let tablinks;
+    let i;
+    this.hideTabContent(0);
+    tablinks = document.getElementsByClassName('tablinks');
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(' active', '');
+    }
+
+    document.getElementById(tabName).style.display = 'block';
+    const targetElem = event.currentTarget as HTMLElement;
+    targetElem.className += ' active';
+  }
+
 
 }

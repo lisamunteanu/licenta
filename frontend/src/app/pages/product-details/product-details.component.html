@@ -6,26 +6,33 @@
     <div class="col-md-4 image-container">
       <img class="image-style" src="/assets/images/{{product.image}}"/>
     </div>
-    <div class="col-md-4 product-info-conainer">
+    <div class="col-md-4 product-info-container">
       <div class="row product-name">
-        {{product.name}}
+        <div class="col-md-12 text-center">
+          {{product.name}}
+        </div>
       </div>
-      <div class="price product-full-price" *ngIf="product.price.discount > 0">
-        Full price: {{product.price.fullPrice}}
+      <hr>
+      <div class="row">
+        <div class="price col-md-6 product-full-price text-center" *ngIf="product.price.discount > 0">
+          Full price: {{product.price.fullPrice}} Lei
+        </div>
+        <div class="product-brand col-md-6 text-center">
+          Marca: {{product.brand}}
+        </div>
       </div>
-      <div class="price product-final-price">
-        Price: {{product.price.finalPrice}}
+      <div class="row">
+      <div class="price col-md-6 product-final-price text-center">
+        Price: {{product.price.finalPrice}} Lei
       </div>
-      <div class="price product-discount-price" *ngIf="product.price.discount > 0">
-        Discount: {{product.price.discount}}
+      <div class="price col-md-6 product-discount-price text-center" *ngIf="product.price.discount > 0">
+        Discount: {{product.price.discount}} Lei
       </div>
-      <div class="product-brand">
-        Marca: {{product.brand}}
       </div>
-      <div>
-        <button mat-flat-button class="add-to-cart-button" (click)="addToCart()">
+      <div class="row mt-5 add-to-cart-container justify-content-center">
+        <a class="add-to-cart-button" (click)="addToCart()">
           <img src="assets/images/addTocartIcon.png"/>
-        </button>
+        </a>
       </div>
     </div>
 
@@ -33,10 +40,28 @@
     <div class="col-md-2"></div>
   </div>
 
-  <div class="row second-row">
+  <div class="row mt-5 second-row">
     <div class="col-md-2"></div>
-    <div class="col-md-8">
-      Product description+informations
+    <div class="col-md-8 mt-5 product-features-container">
+
+      <div class="tab">
+        <button class="tablinks" id="defaultOpen" (click)="openTab($event, 'descriere')">Descriere</button>
+        <button class="tablinks" (click)="openTab($event, 'specificatii')">Specificatii</button>
+      </div>
+
+      <!-- Tab content -->
+      <div id="descriere" class="tabcontent">
+        <h3 class="text-center">Descriere produs</h3>
+        <hr>
+        <p class="text-center">{{product.description}}</p>
+        <p class="text-center">Numai acum in oferta noastra! Disponibil si in magazin.</p>
+      </div>
+
+      <div id="specificatii" class="tabcontent">
+        <h3 class="text-center">Specificatii produs</h3>
+        <hr>
+        <p class="text-center">Aici urmeaza o lista cu detaliile si informatiile despre produs.</p>
+      </div>
     </div>
     <div class="col-md-2"></div>
   </div>
