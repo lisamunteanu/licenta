@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @CrossOrigin(
@@ -28,22 +29,27 @@ public class CartController {
     private CartEntryConverter cartEntryConverter;
 
     @PostMapping("/cart/add-to-cart")
-    public ResponseEntity<CartEntryDTO> addTocart(@RequestBody CartEntryDTO cartEntryDTO, @RequestParam("userId") String userId){
-        CartEntry cartEntry = cartEntryConverter.convertDtoToModel(cartEntryDTO);
+    public ResponseEntity<CartEntryDTO> addTocart(@RequestBody CartEntryDTO cartEntryDTO, @RequestParam("userId") String userId) {
+        if (Objects.isNull(userId)) {
+            return new ResponseEntity<>(new CartEntryDTO(), HttpStatus.BAD_REQUEST);
+        }
+        else {
+            CartEntry cartEntry = cartEntryConverter.convertDtoToModel(cartEntryDTO);
 
-        CartEntry resultEntry = this.cartService.addToCart(Integer.parseInt(userId),cartEntry);
-        CartEntryDTO response = cartEntryConverter.convertModelToDto(resultEntry);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+            CartEntry resultEntry = this.cartService.addToCart(Integer.parseInt(userId), cartEntry);
+            CartEntryDTO response = cartEntryConverter.convertModelToDto(resultEntry);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
     }
 
     @GetMapping("/cart/cart-entries")
-    public ResponseEntity<List<CartEntry>> getCartEntries(){
-        return new ResponseEntity<>(cartService.getAllCartEntries(),HttpStatus.OK);
+    public ResponseEntity<List<CartEntry>> getCartEntries() {
+        return new ResponseEntity<>(cartService.getAllCartEntries(), HttpStatus.OK);
     }
 
     @GetMapping("/cart/cart-entries/by")
-    public ResponseEntity<List<CartEntryDTO>> getCartEntriesByUserId(@RequestParam("userId") String userId){
-        return new ResponseEntity<>(cartService.getCartEntriesByUserId(Integer.parseInt(userId)),HttpStatus.OK);
+    public ResponseEntity<List<CartEntryDTO>> getCartEntriesByUserId(@RequestParam("userId") String userId) {
+        return new ResponseEntity<>(cartService.getCartEntriesByUserId(Integer.parseInt(userId)), HttpStatus.OK);
     }
 
     @DeleteMapping("/cart/cart-entries/by")

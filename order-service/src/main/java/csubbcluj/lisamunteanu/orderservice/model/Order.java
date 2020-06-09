@@ -24,7 +24,7 @@ public class Order implements Serializable {
     @Column(name = "paymentMode")
     private String paymentMode;
 
-    @Column(name= "productsTotal")
+    @Column(name = "productsTotal")
     private Double productsTotal;
 
     @Column(name = "totalDiscount")

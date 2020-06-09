@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CustomerService} from "../../service/customer.service";
 import {Customer} from "../../model/customer.model";
+import {NotificationService} from "../../service/notification.service";
 
 @Component({
   selector: 'app-register',
@@ -17,11 +18,15 @@ export class RegisterComponent implements OnInit {
 
   constructor(protected customerService: CustomerService, private formBuilder: FormBuilder,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router, protected notifyService: NotificationService) {
   }
 
   get f() {
     return this.registerForm.controls;
+  }
+
+  showToasterInfo(message: string) {
+    this.notifyService.showInfo(message, '');
   }
 
   ngOnInit(): void {
@@ -50,9 +55,10 @@ export class RegisterComponent implements OnInit {
     if (this.customer.password === this.f.confirm.value) {
       this.customerService.register(this.customer).subscribe(data => {
           this.router.navigate([this.returnUrl]);
+          this.showToasterInfo('Inregistrarea s-a facut cu succes! Va rugam sa va autentificati.');
         },
         error => {
-          console.log('bad request ' + error);
+          this.showToasterError('A intervenit o eroare in procesul de inregistrare.');
         });
     }
     else {
@@ -60,6 +66,11 @@ export class RegisterComponent implements OnInit {
     }
 
   }
+
+  showToasterError(message: string) {
+    this.notifyService.showError(message, '');
+  }
+
   onReset() {
     this.submitted = false;
     this.registerForm.reset();

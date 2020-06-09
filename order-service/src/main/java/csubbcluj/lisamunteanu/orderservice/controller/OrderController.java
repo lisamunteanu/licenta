@@ -1,6 +1,10 @@
 package csubbcluj.lisamunteanu.orderservice.controller;
 
+import csubbcluj.lisamunteanu.orderservice.dtos.OrderEntryDTO;
+import csubbcluj.lisamunteanu.orderservice.model.CartEntriesList;
+import csubbcluj.lisamunteanu.orderservice.model.CartEntry;
 import csubbcluj.lisamunteanu.orderservice.model.Order;
+import csubbcluj.lisamunteanu.orderservice.model.OrderEntry;
 import csubbcluj.lisamunteanu.orderservice.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,18 +36,47 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Order>> getAllOrders(){
-        return new ResponseEntity<>(orderService.getAll(),HttpStatus.OK);
+    public ResponseEntity<List<Order>> getAllOrders() {
+        return new ResponseEntity<>(orderService.getAll(), HttpStatus.OK);
     }
 
-//    @GetMapping
-//    public List<Order> getAllOrders(@RequestParam(required = false) Integer customerId) {
-//        if (customerId != null) {
-//            return orders.stream()
-//                    .filter(order -> customerId.equals(order.getCustomerId()))
-//                    .collect(Collectors.toList());
-//        }
-//
-//        return orders;
-//    }
+    @PostMapping("/place-order")
+    public ResponseEntity<Order> placeOrder(@RequestBody CartEntriesList cartEntries, @RequestParam("customerId") String customerId,
+                                            @RequestParam("deliveryMode") String deliveryMode,
+                                            @RequestParam("paymentMode") String paymentMode,
+                                            @RequestParam("quantity") String quantity) {
+        Order order = orderService.placeOrder(cartEntries.getCartEntries(), Integer.parseInt(customerId), deliveryMode, paymentMode, Integer.parseInt(quantity));
+        if (Objects.nonNull(order.getId())) {
+            return new ResponseEntity<>(order, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(order, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+    @GetMapping("/by")
+    public ResponseEntity<List<Order>> getAllOrdersByCustomerId(@RequestParam("customerId") Integer customerId) {
+        List<Order> ordersByUserId = orderService.getOrdersByUserId(customerId);
+        HttpStatus httpStatus;
+        if(ordersByUserId.isEmpty()){
+            httpStatus = HttpStatus.NO_CONTENT;
+        }
+        else{
+            httpStatus = HttpStatus.OK;
+        }
+        return new ResponseEntity<>(ordersByUserId, httpStatus);
+    }
+
+    @GetMapping("/order-entries")
+    public ResponseEntity<List<OrderEntryDTO>> getAllOrderEntries(){
+        List<OrderEntryDTO> allOrderEntries = orderService.getAllOrderEntriesWithID();
+        HttpStatus httpStatus;
+        if(allOrderEntries.isEmpty()){
+            httpStatus = HttpStatus.NO_CONTENT;
+        }
+        else{
+            httpStatus = HttpStatus.OK;
+        }
+        return new ResponseEntity<>(allOrderEntries,httpStatus);
+    }
 }

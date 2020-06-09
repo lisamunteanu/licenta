@@ -5,31 +5,32 @@ import java.io.Serializable;
 
 @Embeddable
 public class OrderToOrderEntryId implements Serializable {
-    private Integer cartId;
-    private Integer cartEntryId;
+    private Integer orderId;
+    private Integer orderEntryId;
 
 
     public OrderToOrderEntryId() {
     }
 
-    public OrderToOrderEntryId(Integer cartId, Integer cartEntryId) {
-        this.cartId = cartId;
-        this.cartEntryId = cartEntryId;
+
+    public OrderToOrderEntryId(Integer orderId, Integer orderEntryId) {
+        this.orderId = orderId;
+        this.orderEntryId = orderEntryId;
     }
 
-    public Integer getCartId() {
-        return cartId;
+    public Integer getOrderId() {
+        return orderId;
     }
 
-    public void setCartId(Integer cartId) {
-        this.cartId = cartId;
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 
-    public Integer getCartEntryId() {
-        return cartEntryId;
+    public Integer getOrderEntryId() {
+        return orderEntryId;
     }
 
-    public void setCartEntryId(Integer cartEntryId) {
-        this.cartEntryId = cartEntryId;
+    public void setOrderEntryId(Integer orderEntryId) {
+        this.orderEntryId = orderEntryId;
     }
 }

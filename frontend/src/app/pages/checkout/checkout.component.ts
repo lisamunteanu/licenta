@@ -3,6 +3,8 @@ import {CartEntry} from "../../model/cartEntry.model";
 import {CartService} from "../../service/cart.service";
 import {HttpResponse} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {OrderService} from "../../service/order.service";
+import {Order} from "../../model/order.model";
 
 @Component({
   selector: 'app-checkout',
@@ -16,8 +18,10 @@ export class CheckoutComponent implements OnInit {
   discount?: number;
   deliveryCost?: number;
   orderTotal?: number;
+  deliveryMode?: string;
+  paymentMode?: string;
 
-  constructor(protected cartService: CartService, private router: Router) {
+  constructor(protected cartService: CartService, private router: Router, protected orderService: OrderService) {
   }
 
   ngOnInit(): void {
@@ -38,6 +42,10 @@ export class CheckoutComponent implements OnInit {
     this.orderTotal = 0;
   }
 
+  updatePaymentMode(typeOfPayment: string) {
+    this.paymentMode = typeOfPayment;
+  }
+
   updateDeliveryCost(event: Event, typeOfDelivery: string) {
     if (typeOfDelivery === 'home-delivery') {
       this.deliveryCost = 20.0;
@@ -45,20 +53,31 @@ export class CheckoutComponent implements OnInit {
     else {
       this.deliveryCost = 5.0;
     }
+    this.deliveryMode = typeOfDelivery;
     this.calculateTotals();
   }
 
   calculateTotals() {
     let i;
+    this.productsTotal = this.discount = this.orderTotal = 0;
     for (i = 0; i < this.cartEntries.length; i++) {
       this.productsTotal = this.productsTotal + this.cartEntries[i].priceWithVAT;
       this.discount = this.discount + this.cartEntries[i].discount;
     }
-    this.orderTotal = this.productsTotal + this.deliveryCost;
+    this.productsTotal = this.productsTotal + this.discount;
+    this.orderTotal = this.productsTotal + this.deliveryCost - this.discount;
   }
 
   placeOrder() {
-    this.router.navigate(['/order-confirmation']);
+    const customerId: string = localStorage.getItem('customer_id');
+    this.orderService.placeOrder(this.cartEntries, customerId, this.deliveryMode, this.paymentMode, 1).subscribe(data => {
+        const resultedOrder: Order = data.body;
+        console.log(resultedOrder);
+        this.router.navigate(['/order-confirmation', resultedOrder.id]);
+      },
+      error => {
+        console.log(error);
+      });
   }
 
 }

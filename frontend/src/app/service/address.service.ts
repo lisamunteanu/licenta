@@ -19,7 +19,7 @@ export class AddressService {
   constructor(protected http: HttpClient) {
   }
 
-  query(customerId: string): Observable<EntityArrayResponseType> {
+  getAllAddressesByCustomerId(customerId: string): Observable<EntityArrayResponseType> {
     let parameters = new HttpParams();
     parameters = parameters.append('customerId', customerId);
     return this.http

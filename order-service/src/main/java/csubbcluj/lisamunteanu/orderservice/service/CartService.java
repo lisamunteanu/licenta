@@ -18,4 +18,6 @@ public interface CartService {
     List<CartEntryDTO> getCartEntriesByUserId(Integer userId);
 
     void removeOrUpdateCart(Integer userId,CartEntry cartEntry) throws Exception;
+
+    void deleteCart(Integer userId);
 }

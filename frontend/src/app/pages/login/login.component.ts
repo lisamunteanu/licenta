@@ -3,6 +3,9 @@ import {AuthService} from "../../service/auth.service";
 import {Credentials} from "../../model/credentials.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
+import {NotificationService} from "../../service/notification.service";
+import {CustomerService} from "../../service/customer.service";
+import {Customer} from "../../model/customer.model";
 
 @Component({
   selector: 'app-login',
@@ -19,7 +22,11 @@ export class LoginComponent implements OnInit {
 
   constructor(protected authService: AuthService, private formBuilder: FormBuilder,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router, protected notifyService: NotificationService, private customerService: CustomerService) {
+  }
+
+  showToasterInfo(message: string) {
+    this.notifyService.showInfo(message, '')
   }
 
   get f() {
@@ -47,12 +54,26 @@ export class LoginComponent implements OnInit {
 
     this.authService.authenticate(this.credentials).subscribe(data => {
         this.authService.saveCustomerId(this.credentials);
-        this.router.navigate([this.returnUrl]);
+        let customer: Customer;
+        this.customerService.findByUsername(this.credentials.username).subscribe((response) => {
+          customer = response.body;
+          if (customer.role === 'USER') {
+            this.router.navigate([this.returnUrl]);
+          }
+          else if (customer.role === 'ADMIN') {
+            this.router.navigate(['/admin']);
+          }
+          this.showToasterInfo('Autentificarea s-a facut cu succes!');
+        });
       },
       error => {
         this.loading = false;
-        console.log('bad credentials');
+        this.showToasterError('A intervenit o eroare in procesul de autentificare.');
       });
+  }
+
+  showToasterError(message: string) {
+    this.notifyService.showError(message, '');
   }
 
 }

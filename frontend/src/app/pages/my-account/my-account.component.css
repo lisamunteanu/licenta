@@ -87,4 +87,21 @@
   color: #023750;
 }
 
+.add-new-address-btn{
+  width: 100%;
+}
+
+.address-element{
+  margin-top: 10px;
+  border: 1px solid lightgrey;
+}
+
+.address-element{
+  list-style-type: none;
+}
+
+.address-span{
+  font-weight: bold;
+}
+
 

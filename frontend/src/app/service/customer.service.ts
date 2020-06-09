@@ -35,4 +35,8 @@ export class CustomerService {
     return this.http.post<string>(this.resourceUrl + '/register', customer);
   }
 
+  getAllCustomers(req?: any): Observable<EntityArrayResponseType> {
+    return this.http.get<Customer[]>(this.resourceUrl, {observe: 'response'});
+  }
+
 }

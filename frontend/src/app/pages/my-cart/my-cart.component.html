@@ -8,7 +8,8 @@
       </div>
     </div>
     <div class="row btn-checkout-container float-right">
-      <button class="btn btn-outline-secondary next-button" [routerLink]="['/checkout']">Du-ma la pagina de checkout
+      <button class="btn btn-outline-secondary next-button" [disabled]="cartEntries!=null && cartEntries.length ==0"
+              [routerLink]="['/checkout']">Du-ma la pagina de checkout
       </button>
     </div>
   </div>

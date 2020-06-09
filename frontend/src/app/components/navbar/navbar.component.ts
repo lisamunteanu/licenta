@@ -6,6 +6,7 @@ import {HttpResponse} from "@angular/common/http";
 import {Category} from "../../model/category.model";
 import {ProductService} from "../../service/product.service";
 import {Product} from "../../model/product.model";
+import {NotificationService} from "../../service/notification.service";
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +19,7 @@ export class NavbarComponent implements OnInit {
   @ViewChild('searchKeyWord') searchKeyWord: ElementRef;
 
   constructor(public authService: AuthService, private router: Router, protected categoryService: CategoryService,
-              protected productService: ProductService) {
+              protected productService: ProductService, protected notifyService: NotificationService) {
   }
 
   ngOnInit(): void {
@@ -52,6 +53,7 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.router.navigate(['/']);
+    this.showToasterInfo('Ati fost deconectat!');
   }
 
   goToProductsPage(categoryId: number) {
@@ -70,5 +72,8 @@ export class NavbarComponent implements OnInit {
     event.preventDefault();
   }
 
+  showToasterInfo(message: string){
+    this.notifyService.showInfo(message, '');
+  }
 
 }

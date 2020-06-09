@@ -35,13 +35,17 @@ const routes: Routes = [
     loadChildren: () => import('./pages/checkout/checkout.module').then(m => m.CheckoutModule)
   },
   {
-    path: 'order-confirmation',
+    path: 'order-confirmation/:id',
     loadChildren: () => import('./pages/order-confirmation/order-confirmation.module').then(m => m.OrderConfirmationModule)
   },
   {
     path: 'no-results-found',
     loadChildren: () => import('./pages/no-results-found/no-results-found.module').then(m => m.NoResultsFoundModule)
-  }
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule)
+  },
 ];
 
 @NgModule({

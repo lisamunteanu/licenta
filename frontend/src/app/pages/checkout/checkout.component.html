@@ -41,11 +41,11 @@
             </div>
             <div class="card body payment-mode-body">
               <div class="custom-control payment-radio">
-                <input type="radio" class="payment-mode-options" id="cashOnDeliveryOption" name="paymentOption">
+                <input type="radio" class="payment-mode-options" (click)="updatePaymentMode('cash-on-delivery-payment')" id="cashOnDeliveryOption" name="paymentOption">
                 <label class="payment-mode-label" for="cashOnDeliveryOption">&nbsp; Plata la ramburs</label>
               </div>
               <div class="custom-control payment-radio">
-                <input type="radio" class="payment-mode-options" id="creditCardOption" name="paymentOption">
+                <input type="radio" class="payment-mode-options" (click)="updatePaymentMode('credit-cart-payment')" id id="creditCardOption" name="paymentOption">
                 <label class="payment-mode-label" for="creditCardOption">&nbsp; Plata cu cardul</label>
               </div>
             </div>
@@ -58,12 +58,12 @@
             </div>
             <div class="card body delivery-mode-body">
               <div class="custom-control delivery-radio">
-                <input type="radio" class="delivery-mode-options" (select)="updateDeliveryCost($event,'home-delivery')"
+                <input type="radio" class="delivery-mode-options" (click)="updateDeliveryCost($event,'home-delivery')"
                        id="homeDelivery" name="deliveryOption">
                 <label class="delivery-mode-label" for="homeDelivery">&nbsp; Livrare la domiciliu</label>
               </div>
               <div class="custom-control delivery-radio">
-                <input type="radio" class="delivery-mode-options" (select)="updateDeliveryCost($event,'store-delivery')"
+                <input type="radio" class="delivery-mode-options" (click)="updateDeliveryCost($event,'store-delivery')"
                        id="storeDelivery" name="deliveryOption">
                 <label class="delivery-mode-label" for="storeDelivery">&nbsp; Ridicare din magazin</label>
               </div>

@@ -1,0 +1,61 @@
+.admin-page{
+  color: #023750;
+}
+
+hr{
+  border-color: #023750;
+}
+
+.export-orders, .export-users{
+  width: 100%;
+}
+
+* {box-sizing: border-box}
+
+.tab {
+  float: left;
+  border: 1px solid #ccc;
+  background-color: #eef1f3;
+  width: 20%;
+  height: 100%;
+  position: relative;
+}
+
+.tab button {
+  display: block;
+  background-color: inherit;
+  color: #023750 !important;
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.tab button:hover {
+  background-color: #ddd;
+}
+
+.tab button.active {
+  background-color: #ccc;
+}
+
+.tabcontent {
+  float: left;
+  padding: 0px 12px;
+  border: 1px solid #ccc;
+  width: 80%;
+  border-left: none;
+  height: 100%;
+
+}
+.tabs{
+  margin-top: 50px;
+  height: 800px;
+}
+
+.title{
+  margin-top: 10px;
+}

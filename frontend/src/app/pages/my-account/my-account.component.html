@@ -22,10 +22,10 @@
     <div class="col-md-10 tabs">
       <!-- Centered Tabs -->
       <div class="tab">
-        <button class="tablinks" (click)="openCity($event, 'account-information')">Informatiile mele</button>
-        <button class="tablinks" (click)="openCity($event, 'orders-information')">Comenzile mele</button>
-        <button class="tablinks" (click)="openCity($event, 'addresses-information')">Adresele mele</button>
-        <button class="btn btn-primary log-out-btn" (click)="logOut()">Log out</button>
+        <button class="tablinks" (click)="openTab($event, 'account-information')">Informatiile mele</button>
+        <button class="tablinks" (click)="openTab($event, 'orders-information')">Comenzile mele</button>
+        <button class="tablinks" (click)="openTab($event, 'addresses-information')">Adresele mele</button>
+        <button class="btn btn-primary log-out-btn" (click)="logOut()">Deconectare</button>
       </div>
 
       <div id="account-information" class="tabcontent">
@@ -36,18 +36,49 @@
         <div class="customer-details">
           <ul>
             <li><span class="details-span">NUME COMPLET:  </span><span *ngIf="customer">{{customer.name}}</span></li>
-            <li><span class="details-span">NUME:          </span><span *ngIf="customer">{{customer.name.split(" ")[0]}}</span></li>
-            <li><span class="details-span">PRENUME:       </span><span *ngIf="customer">{{customer.name.split(" ")[1]}}</span></li>
-            <li><span class="details-span">EMAIL:         </span><span *ngIf="customer">{{customer.username}}</span></li>
-            <li><span class="details-span">DATA NASTERII: </span><span *ngIf="customer">{{customer.dateOfBirth}}</span></li>
+            <li><span class="details-span">NUME:          </span><span
+              *ngIf="customer">{{customer.name.split(" ")[0]}}</span></li>
+            <li><span class="details-span">PRENUME:       </span><span
+              *ngIf="customer">{{customer.name.split(" ")[1]}}</span></li>
+            <li><span class="details-span">EMAIL:         </span><span *ngIf="customer">{{customer.username}}</span>
+            </li>
+            <li><span class="details-span">DATA NASTERII: </span><span *ngIf="customer">{{customer.dateOfBirth}}</span>
+            </li>
           </ul>
         </div>
 
       </div>
 
       <div id="orders-information" class="tabcontent">
-        <div class="title justify-content-center">
-          <h4>Despre comenzile plasate</h4>
+        <div>
+          <div class="row title">
+            <div class="col-md-12 text-center">
+              <h4 class="text-center">Despre comenzile plasate</h4>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table">
+                <thead class="thead-light">
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Data comenzii</th>
+                  <th scope="col">Metoda livrare</th>
+                  <th scope="col">Metoda plata</th>
+                </tr>
+                </thead>
+                <tbody *ngFor="let order of orders">
+                <tr>
+                  <th scope="row">{{order.id}}</th>
+                  <td>{{order.date}}</td>
+                  <td>{{order.deliveryMode}}</td>
+                  <td>{{order.paymentMode}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
         <hr>
       </div>
@@ -57,6 +88,27 @@
           <h4>Despre adresele adaugate</h4>
         </div>
         <hr>
+        <div class="btn-add-new-address-container">
+          <button class="btn btn-outline-secondary add-new-address-btn">Adauga o noua adresa
+          </button>
+        </div>
+        <div class="my-adresses-container">
+          <div *ngFor="let address of addresses">
+            <div class="address-element">
+              <div class="address-content">
+                <div>
+                  Localitatea:<span class="address-span"> {{address.city}}</span>, Judetul:<span class="address-span"> {{address.region}}</span>
+                </div>
+                <div>
+                  Adresa:<span class="address-span"> {{address.streetName}} {{address.streetNumber}}, {{address.otherDetails}}</span>
+                </div>
+                <div>
+                  Numar telefon:<span class="address-span"> {{address.phoneNumber}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="col-md-1"></div>

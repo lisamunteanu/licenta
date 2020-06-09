@@ -1,0 +1,105 @@
+<div class="admin-page">
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <hr>
+      <h4 class="text-center">Administrare</h4>
+      <hr>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-4">
+      <button class="btn btn-outline-secondary export-orders" (click)="exportOrdersToCSV()">Exporta comenzile catre CSV</button>
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-outline-secondary export-users" (click)="exportOrderEntriesToCSV()">Exporta intrarile de comanda catre CSV</button>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 tabs">
+      <div class="tab">
+        <button class="tablinks" (click)="openTab($event, 'all-orders')">Comenzi</button>
+        <button class="tablinks" (click)="openTab($event, 'all-users')">Clienti</button>
+      </div>
+
+      <div id="all-orders" class="tabcontent">
+        <div>
+          <div class="row title">
+            <div class="col-md-12 text-center">
+              <h4 class="text-center">Toate comenzile</h4>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table">
+                <thead class="thead-light">
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Data comenzii</th>
+                  <th scope="col">Metoda livrare</th>
+                  <th scope="col">Metoda plata</th>
+                  <th scope="col">Suma totala</th>
+                  <th scope="col">Discount total</th>
+                </tr>
+                </thead>
+                <tbody *ngFor="let order of allOrders">
+                <tr>
+                  <th scope="row">{{order.id}}</th>
+                  <td>{{order.date}}</td>
+                  <td>{{order.deliveryMode}}</td>
+                  <td>{{order.paymentMode}}</td>
+                  <td>{{order.totalPrice}} lei</td>
+                  <td>{{order.totalDiscount}} lei</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <hr>
+      </div>
+
+      <div id="all-users" class="tabcontent">
+        <div>
+          <div class="row title">
+            <div class="col-md-12 text-center">
+              <h4 class="text-center">Toate comenzile</h4>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table">
+                <thead class="thead-light">
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Nume si Prenume</th>
+                  <th scope="col">Numele de utilizator</th>
+                  <th scope="col">Data nasterii</th>
+                </tr>
+                </thead>
+                <tbody *ngFor="let customer of allCustomers">
+                <tr>
+                  <th scope="row">{{customer.id}}</th>
+                  <td>{{customer.name}}</td>
+                  <td>{{customer.username}}</td>
+                  <td>{{customer.dateOfBirth}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <hr>
+      </div>
+
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+
+</div>

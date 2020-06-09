@@ -22,6 +22,8 @@ import {CheckoutModule} from './pages/checkout/checkout.module';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {NoResultsFoundModule} from './pages/no-results-found/no-results-found.module';
 import {CategoriesListModule} from "./components/categories-list/categories-list.module";
+import {ToastrModule} from "ngx-toastr";
+import {AdminModule} from "./pages/admin/admin.module";
 
 
 @NgModule({
@@ -49,7 +51,10 @@ import {CategoriesListModule} from "./components/categories-list/categories-list
     OrderConfirmationModule,
     CheckoutModule,
     NoResultsFoundModule,
-    CategoriesListModule
+    CategoriesListModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    AdminModule
   ],
   providers: [],
   bootstrap: [AppComponent]

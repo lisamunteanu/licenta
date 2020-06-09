@@ -151,4 +151,12 @@ public class CartServiceImpl implements CartService {
             throw new Exception("Cart not found");
         }
     }
+
+    @Override
+    public void deleteCart(Integer userId) {
+        Optional<Cart> cart = cartDao.findByUser(userId);
+        if(cart.isPresent()){
+            cartDao.delete(cart.get());
+        }
+    }
 }
