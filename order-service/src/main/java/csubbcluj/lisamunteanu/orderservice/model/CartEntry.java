@@ -38,11 +38,14 @@ public class CartEntry implements Serializable {
     @Column(name = "price_vat")
     private Double productPriceVAT;
 
+    @Column(name = "quantity")
+    private Integer quantity;
+
     public CartEntry() {
     }
 
     public CartEntry(String productName, String productBrand, String productImage, String productDescription,
-                     Integer productId, Double priceWithVAT, Double priceWithoutVAT, Double discount, Double productPriceVAT) {
+                     Integer productId, Double priceWithVAT, Double priceWithoutVAT, Double discount, Double productPriceVAT, Integer quantity) {
         this.productName = productName;
         this.productBrand = productBrand;
         this.productImage = productImage;
@@ -52,6 +55,7 @@ public class CartEntry implements Serializable {
         this.priceWithoutVAT = priceWithoutVAT;
         this.discount = discount;
         this.productPriceVAT = productPriceVAT;
+        this.quantity = quantity;
     }
 
     public Integer getId() {
@@ -132,5 +136,13 @@ public class CartEntry implements Serializable {
 
     public void setProductPriceVAT(Double productPriceVAT) {
         this.productPriceVAT = productPriceVAT;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

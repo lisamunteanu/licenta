@@ -6,6 +6,7 @@ import csubbcluj.lisamunteanu.productservice.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,6 +39,18 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> searchByKeyword(String keyword) {
         return productDao.findAllByKeyword(keyword);
+    }
+
+    @Transactional
+    @Override
+    public void updateStock(Integer quantity, Integer productId) throws Exception {
+        Optional<Product> product = productDao.findById(productId);
+        if(product.isPresent()){
+            productDao.updateStock(quantity,productId);
+        }
+        else{
+            throw new Exception("Product does not exist!");
+        }
     }
 
 }

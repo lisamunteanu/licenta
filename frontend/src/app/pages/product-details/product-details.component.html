@@ -15,7 +15,7 @@
       <hr>
       <div class="row">
         <div class="price col-md-6 product-full-price text-center" *ngIf="product.price.discount > 0">
-          Full price: {{product.price.fullPrice}} Lei
+          Full price: {{product.price.fullPrice | number:'1.2-2'}} Lei
         </div>
         <div class="product-brand col-md-6 text-center">
           Marca: {{product.brand}}
@@ -23,10 +23,10 @@
       </div>
       <div class="row">
       <div class="price col-md-6 product-final-price text-center">
-        Price: {{product.price.finalPrice}} Lei
+        Price: {{product.price.finalPrice | number:'1.2-2'}} Lei
       </div>
       <div class="price col-md-6 product-discount-price text-center" *ngIf="product.price.discount > 0">
-        Discount: {{product.price.discount}} Lei
+        Discount: {{product.price.discount | number:'1.2-2'}} Lei
       </div>
       </div>
       <div class="row mt-5 add-to-cart-container justify-content-center">

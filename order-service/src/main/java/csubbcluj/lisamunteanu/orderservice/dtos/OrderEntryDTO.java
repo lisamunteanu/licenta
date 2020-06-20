@@ -7,6 +7,7 @@ public class OrderEntryDTO implements Serializable {
     private Integer id;
     private String productName;
     private String productBrand;
+    private String productImage;
     private String productDescription;
     private Integer productId;
     private Double priceWithVAT;
@@ -16,10 +17,11 @@ public class OrderEntryDTO implements Serializable {
     private Integer orderId;
     private Integer customerId;
     private LocalDateTime orderDate;
+    private Integer quantity;
 
     public OrderEntryDTO(Integer id, String productName, String productBrand, String productDescription,
                          Integer productId, Double priceWithVAT, Double priceWithoutVAT, Double discount,
-                         Double productPriceVAT, Integer orderId, Integer customerId, LocalDateTime orderDate) {
+                         Double productPriceVAT, Integer orderId, Integer customerId, LocalDateTime orderDate, Integer quantity,String productImage) {
         this.id = id;
         this.productName = productName;
         this.productBrand = productBrand;
@@ -32,6 +34,7 @@ public class OrderEntryDTO implements Serializable {
         this.orderId = orderId;
         this.customerId = customerId;
         this.orderDate = orderDate;
+        this.quantity = quantity;
     }
 
     public OrderEntryDTO() {
@@ -131,5 +134,21 @@ public class OrderEntryDTO implements Serializable {
 
     public void setOrderDate(LocalDateTime orderDate) {
         this.orderDate = orderDate;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getProductImage() {
+        return productImage;
+    }
+
+    public void setProductImage(String productImage) {
+        this.productImage = productImage;
     }
 }

@@ -1,8 +1,10 @@
 package csubbcluj.lisamunteanu.productservice.controller;
 
+import com.netflix.client.http.HttpResponse;
 import csubbcluj.lisamunteanu.productservice.model.Product;
 import csubbcluj.lisamunteanu.productservice.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -62,6 +64,16 @@ public class ProductController {
         }
         else{
             return new ResponseEntity<>(foundProducts,HttpStatus.OK);
+        }
+    }
+
+    @PutMapping("/update-stock/{productId}")
+    public HttpStatus updateStock(@PathVariable("productId") Integer productId,@RequestParam("quantity") String quantity){
+        try {
+            productService.updateStock(Integer.parseInt(quantity),productId);
+            return HttpStatus.OK;
+        } catch (Exception e) {
+            return HttpStatus.BAD_REQUEST;
         }
     }
 }

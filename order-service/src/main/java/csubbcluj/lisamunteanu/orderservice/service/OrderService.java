@@ -1,7 +1,7 @@
 package csubbcluj.lisamunteanu.orderservice.service;
 
+import csubbcluj.lisamunteanu.orderservice.dtos.CartEntryDTO;
 import csubbcluj.lisamunteanu.orderservice.dtos.OrderEntryDTO;
-import csubbcluj.lisamunteanu.orderservice.model.CartEntry;
 import csubbcluj.lisamunteanu.orderservice.model.Order;
 import csubbcluj.lisamunteanu.orderservice.model.OrderEntry;
 
@@ -14,7 +14,7 @@ public interface OrderService {
 
     Optional<Order> findById(Integer id);
 
-    Order placeOrder(List<CartEntry> cartEntries, Integer customerId, String deliveryMode, String paymentMode, Integer quantity);
+    Order placeOrder(List<CartEntryDTO> cartEntries, Integer customerId, String deliveryMode, String paymentMode, Integer quantity);
 
     List<Order> getOrdersByUserId(Integer userId);
 

@@ -2,7 +2,6 @@ import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
 import {Product} from '../model/product.model';
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
-import {Customer} from "../model/customer.model";
 
 type EntityResponseType = HttpResponse<Product>;
 type EntityArrayResponseType = HttpResponse<Product[]>;
@@ -25,8 +24,8 @@ export class ProductService {
       .get<Product>(`${this.resourceUrl}/${id}`, {observe: 'response'});
   }
 
-  findAllByCategory(id: number): Observable<EntityArrayResponseType> {
-    return this.http.get<Product[]>(`${this.resourceUrl}/category/` + id, {observe: 'response'});
+  findAllByCategory( id: number): Observable<EntityArrayResponseType> {
+    return this.http.get<Product[]>(`${this.resourceUrl}/category/` + id, { observe: 'response'});
   }
 
   searchByKeyword(keyword: string): Observable<EntityArrayResponseType> {
@@ -34,6 +33,13 @@ export class ProductService {
     parameters = parameters.append('keyword', keyword);
     return this.http
       .get<Product[]>(`${this.resourceUrl}/search`, {params: parameters, observe: 'response'});
+  }
+
+  updateStock(quantity: string, productId: number): Observable<any> {
+    let parameters = new HttpParams();
+    parameters = parameters.append('quantity', quantity);
+    return this.http.put<any>(`${this.resourceUrl}/update-stock/` + productId, null,
+      {params: parameters, observe: 'response'});
   }
 
 }

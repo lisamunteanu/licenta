@@ -1,4 +1,4 @@
-import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Order} from '../model/order.model';
 import {OrderEntry} from '../model/orderEntry.model';
@@ -34,8 +34,11 @@ export class OrderService {
     });
   }
 
-  getOrdersByCustomerId(req?: any): Observable<OrderArrayResponseType> {
+  getOrdersByCustomerId( req?: any): Observable<OrderArrayResponseType> {
     let parameters = new HttpParams();
+    // const headersHttp = new HttpHeaders();
+    // const tokenParse = JSON.parse(token);
+    // headersHttp.append('Authorization', `${tokenParse}`);
     const customerId: string = localStorage.getItem('customer_id');
     parameters = parameters.append('customerId', customerId);
     return this.http

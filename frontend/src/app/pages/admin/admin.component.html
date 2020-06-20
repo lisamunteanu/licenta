@@ -53,8 +53,8 @@
                   <td>{{order.date}}</td>
                   <td>{{order.deliveryMode}}</td>
                   <td>{{order.paymentMode}}</td>
-                  <td>{{order.totalPrice}} lei</td>
-                  <td>{{order.totalDiscount}} lei</td>
+                  <td>{{order.totalPrice | number:'1.2-2'}} lei</td>
+                  <td>{{order.totalDiscount | number:'1.2-2'}} lei</td>
                 </tr>
                 </tbody>
               </table>

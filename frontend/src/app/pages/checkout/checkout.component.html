@@ -18,10 +18,10 @@
               <div class="row mt-5"></div>
               <div class="row">
                 <div class="col-md-6">
-                  <label>Pret: </label>{{cartEntry.priceWithVAT}} Lei
+                  <label>Pret: </label>{{cartEntry.priceWithVAT | number:'1.2-2'}} Lei
                 </div>
                 <div class="col-md-6">
-                  <label>Cantitate: </label>{{cartEntry.quantity}}
+                  <label>Cantitate: </label>{{cartEntry.quantity | number:'1.2-2'}}
                 </div>
               </div>
 
@@ -80,23 +80,23 @@
             <div class="row">
               <div class="col-md-12 cart-totals">
                 <label class="price-labels">Total produse:</label><span
-                class="price-values"> {{productsTotal}} Lei</span>
+                class="price-values"> {{productsTotal | number:'1.2-2'}} Lei</span>
               </div>
             </div>
             <div class="row mt-2">
               <div class="col-md-12 cart-totals">
-                <label class="price-labels">Total reducere:</label><span class="price-values"> {{discount}} Lei</span>
+                <label class="price-labels">Total reducere:</label><span class="price-values"> {{discount | number:'1.2-2'}} Lei</span>
               </div>
             </div>
             <div class="row mt-2">
               <div id="deliveryCost" class="col-md-12 cart-totals">
-                <label class="price-labels">Taxa livrare:</label><span class="price-values"> {{deliveryCost}} Lei</span>
+                <label class="price-labels">Taxa livrare:</label><span class="price-values"> {{deliveryCost | number:'1.2-2'}} Lei</span>
               </div>
             </div>
             <hr>
             <div class="row mt-2">
               <div id="orderTotals" class="col-md-12 cart-totals">
-                <label class="price-labels">Total comanda:</label><span class="price-values"> {{orderTotal}} Lei</span>
+                <label class="price-labels">Total comanda:</label><span class="price-values"> {{orderTotal | number:'1.2-2'}} Lei</span>
               </div>
             </div>
           </div>

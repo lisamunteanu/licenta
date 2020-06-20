@@ -5,6 +5,7 @@ import {HttpResponse} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {OrderService} from "../../service/order.service";
 import {Order} from "../../model/order.model";
+import {ProductService} from "../../service/product.service";
 
 @Component({
   selector: 'app-checkout',
@@ -20,8 +21,10 @@ export class CheckoutComponent implements OnInit {
   orderTotal?: number;
   deliveryMode?: string;
   paymentMode?: string;
+  quantity?: number;
 
-  constructor(protected cartService: CartService, private router: Router, protected orderService: OrderService) {
+  constructor(protected cartService: CartService, private router: Router, protected orderService: OrderService,
+              protected productService: ProductService) {
   }
 
   ngOnInit(): void {
@@ -36,6 +39,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   initializePriceVariables() {
+    this.quantity = 1;
     this.productsTotal = 0;
     this.discount = 0;
     this.deliveryCost = 0;
@@ -70,10 +74,18 @@ export class CheckoutComponent implements OnInit {
 
   placeOrder() {
     const customerId: string = localStorage.getItem('customer_id');
-    this.orderService.placeOrder(this.cartEntries, customerId, this.deliveryMode, this.paymentMode, 1).subscribe(data => {
+    this.orderService.placeOrder(this.cartEntries, customerId, this.deliveryMode, this.paymentMode, this.quantity)
+      .subscribe(data => {
+        console.log(this.cartEntries);
         const resultedOrder: Order = data.body;
         console.log(resultedOrder);
         this.router.navigate(['/order-confirmation', resultedOrder.id]);
+        for (const cartEntry of this.cartEntries) {
+          console.log(cartEntry.quantity.toString());
+          this.productService.updateStock(cartEntry.quantity.toString(), cartEntry.productId).subscribe(data2 => {
+            console.log(data2.body);
+          });
+        }
       },
       error => {
         console.log(error);

@@ -15,4 +15,6 @@ public interface ProductService {
     List<Product> findAllProductsFromCategory(Integer categoryId);
 
     List<Product> searchByKeyword(String keyword);
+
+    void updateStock(Integer quantity, Integer productId) throws Exception;
 }

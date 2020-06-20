@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import {ProductsListingModule} from './pages/products-listing/products-listing.module';
@@ -24,7 +24,6 @@ import {NoResultsFoundModule} from './pages/no-results-found/no-results-found.mo
 import {CategoriesListModule} from "./components/categories-list/categories-list.module";
 import {ToastrModule} from "ngx-toastr";
 import {AdminModule} from "./pages/admin/admin.module";
-
 
 @NgModule({
   declarations: [
@@ -56,7 +55,13 @@ import {AdminModule} from "./pages/admin/admin.module";
     ToastrModule.forRoot(),
     AdminModule
   ],
-  providers: [],
+  providers: [
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: AuthInterceptor,
+    //   multi: true
+    // }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

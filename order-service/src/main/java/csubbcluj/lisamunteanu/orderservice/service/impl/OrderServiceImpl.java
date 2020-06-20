@@ -1,8 +1,11 @@
 package csubbcluj.lisamunteanu.orderservice.service.impl;
 
+import csubbcluj.lisamunteanu.orderservice.converters.CartEntryConverter;
+import csubbcluj.lisamunteanu.orderservice.converters.OrderEntryConverter;
 import csubbcluj.lisamunteanu.orderservice.dao.OrderDao;
 import csubbcluj.lisamunteanu.orderservice.dao.OrderEntryDao;
 import csubbcluj.lisamunteanu.orderservice.dao.OrderToOrderEntryDao;
+import csubbcluj.lisamunteanu.orderservice.dtos.CartEntryDTO;
 import csubbcluj.lisamunteanu.orderservice.dtos.OrderEntryDTO;
 import csubbcluj.lisamunteanu.orderservice.model.*;
 import csubbcluj.lisamunteanu.orderservice.service.CartEntryService;
@@ -34,6 +37,13 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private CartEntryService cartEntryService;
 
+    @Autowired
+    private OrderEntryConverter orderEntryConverter;
+
+    @Autowired
+    private CartEntryConverter cartEntryConverter;
+
+
     @Override
     public List<Order> getAll() {
         return orderDao.findAll();
@@ -44,8 +54,8 @@ public class OrderServiceImpl implements OrderService {
         return orderDao.findById(id);
     }
 
-    OrderEntry convertCartEntryToOrderEntry(CartEntry cartEntry) {
-        OrderEntry orderEntry = new OrderEntry();
+    OrderEntryDTO convertCartEntryToOrderEntry(CartEntryDTO cartEntry) {
+        OrderEntryDTO orderEntry = new OrderEntryDTO();
         if (Objects.nonNull(cartEntry)) {
             Integer productId = Objects.nonNull(cartEntry.getProductId()) ? cartEntry.getProductId() : -1;
             orderEntry.setProductId(productId);
@@ -71,20 +81,23 @@ public class OrderServiceImpl implements OrderService {
             Double discount = Objects.nonNull(cartEntry.getDiscount()) ? cartEntry.getDiscount() : 0.0d;
             orderEntry.setDiscount(discount);
 
+            Integer quantity = Objects.nonNull(cartEntry.getQuantity()) ? cartEntry.getQuantity() : -1;
+            orderEntry.setQuantity(quantity);
+
         }
         return orderEntry;
     }
 
-    List<OrderEntry> convertAllCartEntries(List<CartEntry> cartEntries) {
-        List<OrderEntry> orderEntries = new ArrayList<>();
-        for (CartEntry cartEntry : cartEntries) {
-            OrderEntry orderEntry = this.convertCartEntryToOrderEntry(cartEntry);
+    List<OrderEntryDTO> convertAllCartEntries(List<CartEntryDTO> cartEntries) {
+        List<OrderEntryDTO> orderEntries = new ArrayList<>();
+        for (CartEntryDTO cartEntry : cartEntries) {
+            OrderEntryDTO orderEntry = this.convertCartEntryToOrderEntry(cartEntry);
             orderEntries.add(orderEntry);
         }
         return orderEntries;
     }
 
-    void populateOrder(Order order, String deliveryMode, String paymentMode, List<OrderEntry> orderEntries, Integer customerId) {
+    void populateOrder(Order order, String deliveryMode, String paymentMode, List<OrderEntryDTO> orderEntries, Integer customerId) {
         order.setDate(LocalDateTime.now());
         order.setDeliveryMode(deliveryMode);
         order.setPaymentMode(paymentMode);
@@ -96,7 +109,7 @@ public class OrderServiceImpl implements OrderService {
         Double totalDiscount = 0.0d;
         Double totalPrice = 0.0d;
 
-        for (OrderEntry orderEntry : orderEntries) {
+        for (OrderEntryDTO orderEntry : orderEntries) {
             productsTotal = productsTotal + orderEntry.getPriceWithVAT();
             totalDiscount = totalDiscount + orderEntry.getDiscount();
         }
@@ -109,19 +122,22 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public Order placeOrder(List<CartEntry> cartEntries, Integer customerId, String deliveryMode, String paymentMode, Integer quantity) {
-        List<OrderEntry> orderEntries = this.convertAllCartEntries(cartEntries);
+    public Order placeOrder(List<CartEntryDTO> cartEntries, Integer customerId, String deliveryMode, String paymentMode, Integer quantity) {
+        List<OrderEntryDTO> orderEntriesDTO = this.convertAllCartEntries(cartEntries);
+
         Order order = new Order();
-        populateOrder(order, deliveryMode, paymentMode, orderEntries, customerId);
+        populateOrder(order, deliveryMode, paymentMode, orderEntriesDTO, customerId);
         Order orderWithId = orderDao.save(order);
-        for (OrderEntry orderEntry : orderEntries) {
+        for (OrderEntryDTO dto : orderEntriesDTO) {
+            OrderEntry orderEntry = orderEntryConverter.convertDtoToModel(dto);
             OrderEntry orderEntryWithId = orderEntryDao.save(orderEntry);
             OrderToOrderEntryId orderToOrderEntryId = new OrderToOrderEntryId(orderWithId.getId(), orderEntryWithId.getId());
 
-            OrderToOrderEntryRelation orderToOrderEntryRelation = new OrderToOrderEntryRelation(orderToOrderEntryId, order, orderEntry, quantity);
+            OrderToOrderEntryRelation orderToOrderEntryRelation = new OrderToOrderEntryRelation(orderToOrderEntryId, order, orderEntry, dto.getQuantity());
             orderToOrderEntryDao.save(orderToOrderEntryRelation);
         }
-        cartEntryService.deleteCartEntries(cartEntries, customerId);
+        List<CartEntry> allCartEntries = cartEntryConverter.convertDTOListToModelList(cartEntries);
+        cartEntryService.deleteCartEntries(allCartEntries, customerId);
         cartService.deleteCart(customerId);
 
         return orderWithId;
@@ -178,7 +194,7 @@ public class OrderServiceImpl implements OrderService {
             }
             if (Objects.nonNull(o[11])) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
-                dto.setOrderDate(LocalDateTime.parse(o[11].toString(),formatter));
+                dto.setOrderDate(LocalDateTime.parse(o[11].toString(), formatter));
             }
             result.add(dto);
         }
